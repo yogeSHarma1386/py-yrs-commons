@@ -1,10 +1,9 @@
-
 import heapq
 
-# Binary Search - O(log n)
-def binary_search(arr, target):
+
+def binary_search(arr, target):  # O(log n)
     left, right = 0, len(arr) - 1
-    
+
     while left <= right:
         mid = (left + right) // 2
         if arr[mid] == target:

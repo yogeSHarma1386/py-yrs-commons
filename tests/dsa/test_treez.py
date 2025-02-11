@@ -1,13 +1,13 @@
-import unittest
 import time
+import unittest
+
 import pytest
-import sys
 
 from yrs_commons.dsa import *
 
 
 @pytest.mark.unit
-class TestDSA(unittest.TestCase):
+class BaseTestTree(unittest.TestCase):
     def setUp(self):
         # Binary Tree Setup
         self.bt = BinaryTree()
@@ -31,68 +31,7 @@ class TestDSA(unittest.TestCase):
         for val in values:
             self.avl_root = self.avl.insert(self.avl_root, val)
 
-    def test_binary_tree_traversals(self):
-        # Test inorder traversal
-        self.assertEqual(self.bt.inorder(self.bt.root), [4, 2, 5, 1, 3])
 
-        # Test preorder traversal
-        self.assertEqual(self.bt.preorder(self.bt.root), [1, 2, 4, 5, 3])
-
-        # Test postorder traversal
-        self.assertEqual(self.bt.postorder(self.bt.root), [4, 5, 2, 3, 1])
-
-        # Test level order traversal
-        self.assertEqual(self.bt.level_order(self.bt.root), [[1], [2, 3], [4, 5]])
-
-    def test_binary_tree_properties(self):
-        # Test height
-        self.assertEqual(self.bt.height(self.bt.root), 3)
-
-        # Test balanced tree
-        self.assertTrue(self.bt.is_balanced(self.bt.root))
-
-        # Create unbalanced tree and test
-        unbalanced = NodeTree(1)
-        unbalanced.left = NodeTree(2)
-        unbalanced.left.left = NodeTree(3)
-        self.assertFalse(self.bt.is_balanced(unbalanced))
-
-    def test_bst_operations(self):
-        # Test search
-        self.assertIsNotNone(self.bst.search(self.bst.root, 7))
-        self.assertIsNone(self.bst.search(self.bst.root, 10))
-
-        # Test insertion
-        self.bst.root = self.bst.insert(self.bst.root, 9)
-        self.assertIsNotNone(self.bst.search(self.bst.root, 9))
-
-        # Test deletion
-        self.bst.root = self.bst.delete(self.bst.root, 7)
-        self.assertIsNone(self.bst.search(self.bst.root, 7))
-
-        # Test min value
-        self.assertEqual(self.bst.min_value_node(self.bst.root).val, 2)
-
-    def test_avl_tree_operations(self):
-        # Test height and balance
-        self.assertTrue(abs(self.avl.get_balance(self.avl_root)) <= 1)
-
-        # Test rotations
-        # Left-Left case
-        values = [3, 2, 1]
-        avl_root = None
-        for val in values:
-            avl_root = self.avl.insert(avl_root, val)
-        self.assertTrue(abs(self.avl.get_balance(avl_root)) <= 1)
-
-        # Right-Right case
-        values = [1, 2, 3]
-        avl_root = None
-        for val in values:
-            avl_root = self.avl.insert(avl_root, val)
-        self.assertTrue(abs(self.avl.get_balance(avl_root)) <= 1)
-
-# Performance Tests
 @pytest.mark.performance
 class TestPerformance(unittest.TestCase):
 
@@ -145,7 +84,7 @@ class TestPerformance(unittest.TestCase):
 
 
 @pytest.mark.unit
-class TestBinaryTree:
+class TestBinaryTree1:
     @pytest.fixture
     def sample_tree(self):
         root = BinaryTree(1)
@@ -183,3 +122,205 @@ class TestBinaryTree:
         negative_tree.left = BinaryTree(-2)
         assert negative_tree.val == -1
         assert negative_tree.left.val == -2
+
+
+@pytest.mark.unit
+class TestBinaryTree2(BaseTestTree):
+    def test_binary_tree_traversals(self):
+        # Test inorder traversal
+        self.assertEqual(self.bt.inorder(self.bt.root), [4, 2, 5, 1, 3])
+
+        # Test preorder traversal
+        self.assertEqual(self.bt.preorder(self.bt.root), [1, 2, 4, 5, 3])
+
+        # Test postorder traversal
+        self.assertEqual(self.bt.postorder(self.bt.root), [4, 5, 2, 3, 1])
+
+        # Test level order traversal
+        self.assertEqual(self.bt.level_order(self.bt.root), [[1], [2, 3], [4, 5]])
+
+    def test_binary_tree_properties(self):
+        # Test height
+        self.assertEqual(self.bt.height(self.bt.root), 3)
+
+        # Test balanced tree
+        self.assertTrue(self.bt.is_balanced(self.bt.root))
+
+        # Create unbalanced tree and test
+        unbalanced = NodeTree(1)
+        unbalanced.left = NodeTree(2)
+        unbalanced.left.left = NodeTree(3)
+        self.assertFalse(self.bt.is_balanced(unbalanced))
+
+
+@pytest.mark.unit
+class TestBST(BaseTestTree):
+    def test_bst_operations(self):
+        # Test search
+        self.assertIsNotNone(self.bst.search(self.bst.root, 7))
+        self.assertIsNone(self.bst.search(self.bst.root, 10))
+
+        # Test insertion
+        self.bst.root = self.bst.insert(self.bst.root, 9)
+        self.assertIsNotNone(self.bst.search(self.bst.root, 9))
+
+        # Test deletion
+        self.bst.root = self.bst.delete(self.bst.root, 7)
+        self.assertIsNone(self.bst.search(self.bst.root, 7))
+
+        # Test min value
+        self.assertEqual(self.bst.min_value_node(self.bst.root).val, 2)
+
+
+@pytest.mark.unit
+class TestAVLTree(BaseTestTree):
+    def test_avl_tree_operations(self):
+        # Test height and balance
+        self.assertTrue(abs(self.avl.get_balance(self.avl_root)) <= 1)
+
+        # Test rotations
+        # Left-Left case
+        values = [3, 2, 1]
+        avl_root = None
+        for val in values:
+            avl_root = self.avl.insert(avl_root, val)
+        self.assertTrue(abs(self.avl.get_balance(avl_root)) <= 1)
+
+        # Right-Right case
+        values = [1, 2, 3]
+        avl_root = None
+        for val in values:
+            avl_root = self.avl.insert(avl_root, val)
+        self.assertTrue(abs(self.avl.get_balance(avl_root)) <= 1)
+
+
+@pytest.mark.unit
+class BaseTestTree2:
+    @pytest.fixture
+    def sample_tree(self):
+        """
+        Creates a tree:
+                 3
+               /   \
+              5     1
+             / \   / \
+            6   2 0   8
+               / \
+              7   4
+        """
+        root = NodeTree(3)
+        root.left = NodeTree(5)
+        root.right = NodeTree(1)
+        root.left.left = NodeTree(6)
+        root.left.right = NodeTree(2)
+        root.right.left = NodeTree(0)
+        root.right.right = NodeTree(8)
+        root.left.right.left = NodeTree(7)
+        root.left.right.right = NodeTree(4)
+        return root
+
+
+@pytest.mark.unit
+class TestBinaryTreeLCA(BaseTestTree2):
+
+    def test_lca_positive(self, sample_tree):
+        assert BinaryTree.find_lca(sample_tree, 5, 1).val == 3
+        assert BinaryTree.find_lca(sample_tree, 6, 4).val == 5
+        assert BinaryTree.find_lca(sample_tree, 7, 4).val == 2
+
+    def test_lca_boundary(self):
+        # Single node tree
+        root = NodeTree(1)
+        assert BinaryTree.find_lca(root, 1, 1).val == 1
+        # Empty tree
+        assert BinaryTree.find_lca(None, 1, 2) is None
+
+    def test_lca_negative(self, sample_tree):
+        # Non-existent nodes
+        assert BinaryTree.find_lca(sample_tree, 10, 11) is None
+
+
+@pytest.mark.unit
+class TestBinaryTreeBalance(BaseTestTree2):
+
+    def test_depth_positive(self, sample_tree):
+        assert BinaryTree.get_depth(sample_tree) == 4
+
+    def test_depth_boundary(self):
+        assert BinaryTree.get_depth(None) == 0
+        assert BinaryTree.get_depth(NodeTree(1)) == 1
+
+    def test_balance_positive(self, sample_tree):
+        sample_tree.left.right.right.left = NodeTree(40)
+        sample_tree.left.right.right.right = NodeTree(48)
+        assert not BinaryTree.is_balanced(sample_tree)
+
+        # Creating a balanced tree
+        balanced_tree = NodeTree(1)
+        balanced_tree.left = NodeTree(20)
+        balanced_tree.right = NodeTree(30)
+        assert BinaryTree.is_balanced(balanced_tree)
+
+
+@pytest.mark.unit
+class TestBinaryTreeSerialisation(BaseTestTree2):
+
+    def test_serialization_positive(self, sample_tree):
+        serialized = BinaryTree.serialize(sample_tree)
+        deserialized = BinaryTree.deserialize(serialized)
+        assert BinaryTree.serialize(deserialized) == serialized
+
+    def test_serialization_boundary(self):
+        # Empty tree
+        assert BinaryTree.serialize(None) == "null"
+        assert BinaryTree.deserialize("null") is None
+
+        # Single node
+        single_node = NodeTree(1)
+        assert BinaryTree.deserialize(BinaryTree.serialize(single_node)).val == 1
+
+
+@pytest.mark.unit
+class TestBinaryIndexedTree(BaseTestTree2):
+
+    def test_bit_positive(self):
+        bit = BinaryIndexedTree(5)
+        bit.update(0, 1)
+        bit.update(2, 2)
+        assert bit.get_sum(2) == 3
+        assert bit.get_sum(4) == 3
+
+    def test_bit_boundary(self):
+        bit = BinaryIndexedTree(1)
+        bit.update(0, 1)
+        assert bit.get_sum(0) == 1
+
+
+@pytest.mark.unit
+class TestTrie(BaseTestTree2):
+
+    def test_trie_positive(self):
+        trie = Trie()
+        trie.insert("apple")
+        assert trie.search("apple")
+        assert not trie.search("app")
+
+    def test_trie_prefix_match(self):
+        trie = Trie()
+        words = ["apple", "app", "apricot", "apartment"]
+        for word in words:
+            trie.insert(word)
+
+        assert trie.longest_prefix_match("application") == "app"
+        assert trie.longest_prefix_match("apricot") == "apricot"
+        assert trie.longest_prefix_match("apartment") == "apartment"
+        assert trie.longest_prefix_match("banana") == ""
+
+    def test_trie_boundary(self):
+        trie = Trie()
+        # Empty string
+        trie.insert("")
+        assert trie.search("")
+        # Single character
+        trie.insert("a")
+        assert trie.search("a")

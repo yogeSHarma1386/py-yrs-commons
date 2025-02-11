@@ -2,3 +2,4 @@
 omit =
     *sample*
     *skip*
+    _nodes.py

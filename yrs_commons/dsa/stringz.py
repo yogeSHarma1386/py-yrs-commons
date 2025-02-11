@@ -1,5 +1,4 @@
-# Longest Common Subsequence - O(mn)
-def lcs(str1, str2):
+def lcs(str1, str2):  # Longest Common Subsequence - O(mn)
     m, n = len(str1), len(str2)
     dp = [[0] * (n + 1) for _ in range(m + 1)]
 

@@ -1,6 +1,6 @@
-from .custom_nodes import *
+from ._nodes import NodeLL, NodeDLL
 
-# Stack Implementation
+
 class Stack:
     def __init__(self):
         self.items = []
@@ -27,7 +27,7 @@ class Stack:
     def clear(self):
         self.items = []
 
-# Queue Implementation
+
 class Queue:
     def __init__(self):
         self.items = []
@@ -51,18 +51,20 @@ class Queue:
     def size(self):
         return len(self.items)
 
-# Priority Queue Implementation
+
 class PriorityQueue:
     def __init__(self):
         self.heap = []
 
     def push(self, item, priority):
         import heapq
+
         heapq.heappush(self.heap, (priority, item))
 
     def pop(self):
         if not self.is_empty():
             import heapq
+
             return heapq.heappop(self.heap)[1]
         raise IndexError("Priority Queue is empty")
 
@@ -77,8 +79,8 @@ class PriorityQueue:
     def size(self):
         return len(self.heap)
 
-# Singly Linked List
-class LinkedList:
+
+class LinkedList:  # Singly Linked List
     def __init__(self):
         self.head = None
 
@@ -126,7 +128,9 @@ class LinkedList:
         current = self.head
 
         if self.is_cyclic():
-            raise RecursionError(f"Detected cycle in {type(self.head).__name__}({self.head.data})")
+            raise RecursionError(
+                f"Detected cycle in {type(self.head).__name__}({self.head.data})"
+            )
 
         while current:
             elements.append(current.data)
@@ -143,7 +147,7 @@ class LinkedList:
                 return True
         return False
 
-# Doubly Linked List
+
 class DoublyLinkedList:
     def __init__(self):
         self.head = None
@@ -203,7 +207,7 @@ class DoublyLinkedList:
             current = current.prev
         return elements
 
-# Circular Queue
+
 class CircularQueue:
     def __init__(self, maxsize):
         self.maxsize = maxsize
@@ -241,8 +245,8 @@ class CircularQueue:
     def is_full(self):
         return self.size == self.maxsize
 
-# Deque (Double-ended Queue)
-class DeQueue:
+
+class DeQueue:  # Double-ended Queue
     def __init__(self):
         self.items = []
 
