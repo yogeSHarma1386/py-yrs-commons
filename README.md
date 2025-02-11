@@ -100,9 +100,13 @@ conftest.py for shared fixtures
 
 Test Markers:
 ```python
+import pytest
+
 @pytest.mark.unit
 @pytest.mark.integration
 @pytest.mark.performance
 @pytest.mark.slow
+def sample_test():
+    pass
 ```
 
