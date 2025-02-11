@@ -2,9 +2,31 @@ from .custom_nodes import *
 
 
 class BinaryTree:
-    def __init__(self):
+    def __init__(self, val=None):
         self.root = None
-    
+        if val is not None:
+            self.root = NodeTree(val)
+
+    @property
+    def val(self):
+        return self.root.val
+
+    @property
+    def left(self):
+        return self.root.left
+
+    @left.setter
+    def left(self, value):
+        self.root.left = value
+
+    @property
+    def right(self):
+        return self.root.right
+
+    @right.setter
+    def right(self, value):
+        self.root.right = value
+
     # Tree Traversals
     def inorder(self, root):
         result = []

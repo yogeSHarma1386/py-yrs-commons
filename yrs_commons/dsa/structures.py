@@ -124,10 +124,24 @@ class LinkedList:
     def display(self):
         elements = []
         current = self.head
+
+        if self.is_cyclic():
+            raise RecursionError(f"Detected cycle in {type(self.head).__name__}({self.head.data})")
+
         while current:
             elements.append(current.data)
             current = current.next
         return elements
+
+    def is_cyclic(self):
+        """Detects if a cycle exists in the linked list."""
+        slow = fast = self.head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
 
 # Doubly Linked List
 class DoublyLinkedList:

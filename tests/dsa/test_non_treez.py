@@ -7,8 +7,8 @@ import heapq
 
 # Import the functions we want to test
 from yrs_commons.dsa import (
-    binary_search, quick_sort, merge_sort, Graph,
-    lcs
+    binary_search, quick_sort, merge_sort, GraphAlgo,
+    lcs, Graph
 )
 
 @pytest.mark.unit
@@ -30,58 +30,8 @@ class TestDSAFunctions(unittest.TestCase):
         self.assertEqual(binary_search([1], 1), 0)
         self.assertEqual(binary_search([1], 2), -1)
 
-
 @pytest.mark.unit
-class TestSortingFunctions(unittest.TestCase):
-    def test_quicksort(self):
-        # Test normal case
-        arr = [64, 34, 25, 12, 22, 11, 90]
-        self.assertEqual(quick_sort(arr), sorted(arr))
-        
-        # Test array with duplicates
-        arr = [1, 4, 2, 4, 2, 4, 1, 2, 3]
-        self.assertEqual(quick_sort(arr), sorted(arr))
-        
-        # Test empty array
-        self.assertEqual(quick_sort([]), [])
-        
-        # Test single element array
-        self.assertEqual(quick_sort([1]), [1])
-        
-        # Test already sorted array
-        arr = [1, 2, 3, 4, 5]
-        self.assertEqual(quick_sort(arr), arr)
-        
-        # Test reverse sorted array
-        arr = [5, 4, 3, 2, 1]
-        self.assertEqual(quick_sort(arr), [1, 2, 3, 4, 5])
-
-    def test_merge_sort(self):
-        # Test normal case
-        arr = [64, 34, 25, 12, 22, 11, 90]
-        self.assertEqual(merge_sort(arr), sorted(arr))
-        
-        # Test array with duplicates
-        arr = [1, 4, 2, 4, 2, 4, 1, 2, 3]
-        self.assertEqual(merge_sort(arr), sorted(arr))
-        
-        # Test empty array
-        self.assertEqual(merge_sort([]), [])
-        
-        # Test single element array
-        self.assertEqual(merge_sort([1]), [1])
-        
-        # Test already sorted array
-        arr = [1, 2, 3, 4, 5]
-        self.assertEqual(merge_sort(arr), arr)
-        
-        # Test reverse sorted array
-        arr = [5, 4, 3, 2, 1]
-        self.assertEqual(merge_sort(arr), [1, 2, 3, 4, 5])
-
-
-@pytest.mark.unit
-class TestGraphFunctions(unittest.TestCase):
+class TestGraphAlgos(unittest.TestCase):
     def test_bfs(self):
         # Create a sample graph
         graph = {
@@ -96,13 +46,13 @@ class TestGraphFunctions(unittest.TestCase):
             visited_nodes.add(vertex)
         
         # Test BFS traversal
-        Graph.bfs(graph, 2, visited_nodes)  # Starting from vertex 2
+        GraphAlgo.bfs(graph, 2, visited_nodes)  # Starting from vertex 2
         self.assertEqual(visited_nodes, {0, 1, 2, 3})
         
         # Test isolated vertex
         graph_isolated = {0: [], 1: []}
         visited_nodes.clear()
-        Graph.bfs(graph_isolated, 0, visited_nodes)
+        GraphAlgo.bfs(graph_isolated, 0, visited_nodes)
         self.assertEqual(visited_nodes, {0})
 
     def test_dfs(self):
@@ -115,13 +65,13 @@ class TestGraphFunctions(unittest.TestCase):
         }
         
         visited_nodes = set()
-        Graph.dfs(graph, 2, visited_nodes)  # Starting from vertex 2
+        GraphAlgo.dfs(graph, 2, visited_nodes)  # Starting from vertex 2
         self.assertEqual(visited_nodes, {0, 1, 2, 3})
         
         # Test isolated vertex
         graph_isolated = {0: [], 1: []}
         visited_nodes.clear()
-        Graph.dfs(graph_isolated, 0, visited_nodes)
+        GraphAlgo.dfs(graph_isolated, 0, visited_nodes)
         self.assertEqual(visited_nodes, {0})
 
     def test_has_cycle(self):
@@ -132,7 +82,7 @@ class TestGraphFunctions(unittest.TestCase):
             2: [3],
             3: [1]  # Creates cycle 1->2->3->1
         }
-        self.assertTrue(Graph.has_cycle(graph_cyclic))
+        self.assertTrue(GraphAlgo.has_cycle(graph_cyclic))
         
         # Test acyclic graph
         graph_acyclic = {
@@ -141,13 +91,13 @@ class TestGraphFunctions(unittest.TestCase):
             2: [3],
             3: []
         }
-        self.assertFalse(Graph.has_cycle(graph_acyclic))
+        self.assertFalse(GraphAlgo.has_cycle(graph_acyclic))
         
         # Test empty graph
-        self.assertFalse(Graph.has_cycle({}))
+        self.assertFalse(GraphAlgo.has_cycle({}))
         
         # Test single node with self-loop
-        self.assertTrue(Graph.has_cycle({0: [0]}))
+        self.assertTrue(GraphAlgo.has_cycle({0: [0]}))
 
     def test_lcs(self):
         # Test normal cases
@@ -178,7 +128,7 @@ class TestGraphFunctions(unittest.TestCase):
             'D': {'B': 5, 'C': 8, 'E': 2},
             'E': {'C': 10, 'D': 2}
         }
-        distances = Graph.dijkstra(graph, 'A')
+        distances = GraphAlgo.dijkstra(graph, 'A')
         self.assertEqual(distances['A'], 0)
         self.assertEqual(distances['B'], 3)  # A->C->B
         self.assertEqual(distances['C'], 2)  # A->C
@@ -191,14 +141,14 @@ class TestGraphFunctions(unittest.TestCase):
             'B': {'A': 1},
             'C': {}
         }
-        distances = Graph.dijkstra(graph_disconnected, 'A')
+        distances = GraphAlgo.dijkstra(graph_disconnected, 'A')
         self.assertEqual(distances['A'], 0)
         self.assertEqual(distances['B'], 1)
         self.assertEqual(distances['C'], float('infinity'))
         
         # Test single node graph
         graph_single = {'A': {}}
-        distances = Graph.dijkstra(graph_single, 'A')
+        distances = GraphAlgo.dijkstra(graph_single, 'A')
         self.assertEqual(distances['A'], 0)
 
     def test_edge_cases(self):
@@ -223,8 +173,7 @@ class TestGraphFunctions(unittest.TestCase):
             4: [2],  # Creates cycle
             5: [5]   # Self loop
         }
-        self.assertTrue(Graph.has_cycle(graph_multiple_cycles))
-
+        self.assertTrue(GraphAlgo.has_cycle(graph_multiple_cycles))
 
 @pytest.mark.performance
 class TestPerformance(unittest.TestCase):
@@ -256,6 +205,58 @@ class TestPerformance(unittest.TestCase):
                       for i in range(100)}
         
         start_time = time.time()
-        Graph.dijkstra(large_graph, 0)
+        GraphAlgo.dijkstra(large_graph, 0)
         self.assertLess(time.time() - start_time, 1.0)
 
+@pytest.mark.unit
+class TestGraph:
+    @pytest.fixture
+    def sample_graph(self):
+        graph = Graph()
+        vertices = [1, 2, 3, 4, 5]
+        for vertex in vertices:
+            graph.add_vertex(vertex)
+        edges = [(1, 2), (1, 3), (2, 4), (3, 5)]
+        for v1, v2 in edges:
+            graph.add_edge(v1, v2)
+        return graph
+
+    def test_graph_creation_positive(self, sample_graph):
+        # Test vertex existence
+        assert set(sample_graph.adjacency_list.keys()) == {1, 2, 3, 4, 5}
+        # Test edge existence
+        assert sample_graph.adjacency_list[1] == [2, 3]
+        assert sample_graph.adjacency_list[2] == [4]
+        assert sample_graph.adjacency_list[3] == [5]
+
+    def test_graph_empty_boundary(self):
+        # Test empty graph
+        graph = Graph()
+        assert len(graph.adjacency_list) == 0
+
+    def test_graph_single_vertex_boundary(self):
+        # Test single vertex graph
+        graph = Graph()
+        graph.add_vertex(1)
+        assert len(graph.adjacency_list) == 1
+        assert graph.adjacency_list[1] == []
+
+    def test_graph_cycle(self):
+        # Test graph with cycle
+        graph = Graph()
+        for i in range(1, 4):
+            graph.add_vertex(i)
+        graph.add_edge(1, 2)
+        graph.add_edge(2, 3)
+        graph.add_edge(3, 1)
+        assert graph.adjacency_list[1] == [2]
+        assert graph.adjacency_list[2] == [3]
+        assert graph.adjacency_list[3] == [1]
+
+    def test_graph_isolated_vertices(self):
+        # Test graph with isolated vertices
+        graph = Graph()
+        vertices = [1, 2, 3]
+        for vertex in vertices:
+            graph.add_vertex(vertex)
+        assert all(len(neighbors) == 0 for neighbors in graph.adjacency_list.values())

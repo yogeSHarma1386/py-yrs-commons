@@ -4,7 +4,7 @@ from collections import deque
 import heapq
 
 
-class Graph:
+class GraphAlgo:
     @staticmethod
     def bfs(graph, start, visited=None):
         # visited = visited or set()
@@ -34,7 +34,7 @@ class Graph:
 
         for neighbor in graph[start]:
             if neighbor not in visited:
-                Graph.dfs(graph, neighbor, visited)
+                GraphAlgo.dfs(graph, neighbor, visited)
 
     # Detect Cycle in Directed Graph using DFS - O(V + E)
     @staticmethod
