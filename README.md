@@ -1,6 +1,7 @@
 # My Package
 
-This is a sample Python package that can be installed globally.
+This is a sample Python package that can be installed locally to a system.
+![Codecov](https://codecov.io/gh/yogeSHarma1386/py-yrs-commons/branch/main/graph/badge.svg)
 
 ## Installation
 
