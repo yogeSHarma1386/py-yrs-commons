@@ -1,4 +1,4 @@
-from .main import MyClass, my_function
+from .sample_main import MyClass, my_function
 from yrs_commons.sample import utility_function
 
 __version__ = "0.1.0"

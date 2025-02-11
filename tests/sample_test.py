@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 
 import yrs_commons
-from yrs_commons.main import MyClass, my_function
+from yrs_commons.sample_main import MyClass, my_function
 from yrs_commons.sample import utility_function
 
 def test_imports():
@@ -49,7 +49,7 @@ class TestCommandLine(unittest.TestCase):
     @patch('builtins.print')
     def test_main_function(self, mock_print):
         """Test the command-line interface."""
-        from yrs_commons.main import main
+        from yrs_commons.sample_main import main
         main()
         mock_print.assert_called_with("This runs when package is called from command line")
 

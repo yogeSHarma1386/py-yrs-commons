@@ -7,7 +7,7 @@ import heapq
 
 # Import the functions we want to test
 from yrs_commons.dsa import (
-    binary_search, quicksort, merge_sort, Graph,
+    binary_search, quick_sort, merge_sort, Graph,
     lcs
 )
 
@@ -36,25 +36,25 @@ class TestSortingFunctions(unittest.TestCase):
     def test_quicksort(self):
         # Test normal case
         arr = [64, 34, 25, 12, 22, 11, 90]
-        self.assertEqual(quicksort(arr), sorted(arr))
+        self.assertEqual(quick_sort(arr), sorted(arr))
         
         # Test array with duplicates
         arr = [1, 4, 2, 4, 2, 4, 1, 2, 3]
-        self.assertEqual(quicksort(arr), sorted(arr))
+        self.assertEqual(quick_sort(arr), sorted(arr))
         
         # Test empty array
-        self.assertEqual(quicksort([]), [])
+        self.assertEqual(quick_sort([]), [])
         
         # Test single element array
-        self.assertEqual(quicksort([1]), [1])
+        self.assertEqual(quick_sort([1]), [1])
         
         # Test already sorted array
         arr = [1, 2, 3, 4, 5]
-        self.assertEqual(quicksort(arr), arr)
+        self.assertEqual(quick_sort(arr), arr)
         
         # Test reverse sorted array
         arr = [5, 4, 3, 2, 1]
-        self.assertEqual(quicksort(arr), [1, 2, 3, 4, 5])
+        self.assertEqual(quick_sort(arr), [1, 2, 3, 4, 5])
 
     def test_merge_sort(self):
         # Test normal case
@@ -208,7 +208,7 @@ class TestGraphFunctions(unittest.TestCase):
         
         # Test sorting with negative numbers
         arr = [-5, 3, -2, 1, -8, 4]
-        self.assertEqual(quicksort(arr), sorted(arr))
+        self.assertEqual(quick_sort(arr), sorted(arr))
         self.assertEqual(merge_sort(arr), sorted(arr))
         
         # Test LCS with special characters
@@ -237,7 +237,7 @@ class TestPerformance(unittest.TestCase):
         
         # Test quicksort performance
         start_time = time.time()
-        quicksort(arr.copy())
+        quick_sort(arr.copy())
         quick_time = time.time() - start_time
         
         # Test merge sort performance
