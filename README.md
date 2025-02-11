@@ -1,4 +1,3 @@
-"""
 # My Package
 
 This is a sample Python package that can be installed globally.
@@ -21,8 +20,6 @@ print(obj.greet())
 # Use the function
 print(my_function())
 ```
-"""
-
 
 ### Updating / Creating dist wheel again
 

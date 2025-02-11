@@ -2,6 +2,7 @@ from collections import deque
 from typing import Optional
 
 from ._nodes import NodeTree, TrieNode, NodeAVL
+from ..utils.annotations import yrs_ignore_memorise
 
 
 class BinaryTree:
@@ -148,6 +149,7 @@ class BinaryTree:
         return check_balance(root)[0]
 
     @classmethod
+    @yrs_ignore_memorise
     def display(cls, root: Optional[NodeTree], start_level=0) -> str:
         """
         Ignore memorising this.
