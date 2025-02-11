@@ -138,9 +138,9 @@ class BinaryTree:
             right_balanced, right_height = check_balance(node.right)
 
             balanced = (
-                    left_balanced
-                    and right_balanced
-                    and abs(left_height - right_height) <= 1
+                left_balanced
+                and right_balanced
+                and abs(left_height - right_height) <= 1
             )
 
             return balanced, 1 + max(left_height, right_height)
