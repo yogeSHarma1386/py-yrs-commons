@@ -7,7 +7,9 @@ import heapq
 class Graph:
     @staticmethod
     def bfs(graph, start, visited=None):
-        visited = visited or set()
+        # visited = visited or set()
+        if visited is None:
+            visited = set()
 
         queue = deque([start])
         visited.add(start)
