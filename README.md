@@ -1,7 +1,9 @@
 # My Package
 
 This is a sample Python package that can be installed locally to a system.
+
 ![Codecov](https://codecov.io/gh/yogeSHarma1386/py-yrs-commons/branch/main/graph/badge.svg)
+![Coverage Status](https://coveralls.io/repos/github/yogeSHarma1386/py-yrs-commons/badge.svg?branch=main)
 
 ## Installation
 
