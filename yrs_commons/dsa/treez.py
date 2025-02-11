@@ -150,7 +150,9 @@ class BinaryTree:
 
     @classmethod
     @yrs_ignore_memorise
-    def display(cls, root: Optional[NodeTree], start_level=0) -> str:
+    def display(
+            cls, root: Optional[NodeTree], start_level=0
+    ) -> str:  # pragma: no cover
         """
         Ignore memorising this.
 
