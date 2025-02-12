@@ -131,9 +131,7 @@
 ### **🔟 Monitoring & Logging**
 
 - **Observability:** Logs, metrics, traces (ELK Stack, Prometheus, Grafana, OpenTelemetry).
-  - ⚠️Give examples around granularity of
-    - metric data
-    - alarms captured
+  - ⚠️Give examples around granularity of: metric data, alarms captured
 - **Failure Recovery:** Circuit breakers, retries, dead-letter queues, chaos engineering (Netflix Chaos Monkey).
 - **Distributed Tracing:** Jaeger, Zipkin, Datadog.
 
