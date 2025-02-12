@@ -151,7 +151,7 @@ class BinaryTree:
     @classmethod
     @yrs_ignore_memorise
     def display(
-            cls, root: Optional[NodeTree], start_level=0
+        cls, root: Optional[NodeTree], start_level=0
     ) -> str:  # pragma: no cover
         """
         Ignore memorising this.
@@ -174,7 +174,7 @@ class BinaryTree:
                 queue.append((node.right, level + 1, pos + 2 ** (depth - level - 2)))
 
         depth = cls.get_depth(root)
-        max_width = 2 ** depth - 1  # Full width of the last level
+        max_width = 2**depth - 1  # Full width of the last level
         queue = deque([(root, 0, max_width // 2)])
         curr_level = 0
         level_nodes = []
