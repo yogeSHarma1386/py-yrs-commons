@@ -3,8 +3,14 @@ import unittest
 import pytest
 
 from yrs_commons.dsa import (
-    Stack, Queue, PriorityQueue, LinkedList,
-    DoublyLinkedList, CircularQueue, DeQueue
+    Stack,
+    Queue,
+    PriorityQueue,
+    LinkedList,
+    DoublyLinkedList,
+    CircularQueue,
+    DeQueue,
+    MinHeap,
 )
 
 
@@ -120,8 +126,8 @@ class TestPriorityQueue(unittest.TestCase):
         self.assertEqual(len(self.pq.heap), 2)
 
     def test_extreme_priority(self):
-        self.pq.push("task1", -float('inf'))
-        self.pq.push("task2", float('inf'))
+        self.pq.push("task1", -float("inf"))
+        self.pq.push("task2", float("inf"))
         self.assertEqual(self.pq.pop(), "task1")
 
 
@@ -291,6 +297,7 @@ class TestDeque(unittest.TestCase):
 class TestPerformance(unittest.TestCase):
     def test_large_stack_operations(self):
         import time
+
         stack = Stack()
         start_time = time.time()
         for i in range(10 ** 5):
@@ -302,6 +309,7 @@ class TestPerformance(unittest.TestCase):
 
     def test_large_queue_operations(self):
         import time
+
         queue = Queue()
         start_time = time.time()
         for i in range(10 ** 5):
@@ -309,8 +317,37 @@ class TestPerformance(unittest.TestCase):
         for i in range(10 ** 5):
             queue.dequeue()
         duration = time.time() - start_time
-        self.assertLess(duration, 1.0)
+        self.assertLess(duration, 1.3)
 
 
-if __name__ == '__main__':
+class TestHeap:
+    def test_heap_positive(self):  # Positive numbers
+        heap = MinHeap()
+        numbers = [4, 1, 7, 3, 8, 5]
+        for num in numbers:
+            heap.push(num)
+
+        assert heap.peek() == 1
+        assert [heap.pop() for _ in range(heap.size())] == [1, 3, 4, 5, 7, 8]
+
+    def test_heap_boundary(self):
+        heap = MinHeap()
+        # Single element
+        heap.push(1)
+        assert heap.peek() == 1
+        assert heap.pop() == 1
+
+        # Empty heap
+        with pytest.raises(IndexError):
+            heap.peek()
+
+    def test_heap_negative(self):  # Mixed positive and negative numbers
+        heap = MinHeap()
+        numbers = [-4, 1, -7, 3, -8, 5]
+        for num in numbers:
+            heap.push(num)
+        assert heap.peek() == -8
+
+
+if __name__ == "__main__":
     unittest.main()

@@ -1,3 +1,5 @@
+import heapq
+
 from ._nodes import NodeLL, NodeDLL
 
 
@@ -271,3 +273,24 @@ class DeQueue:  # Double-ended Queue
 
     def size(self):
         return len(self.items)
+
+
+class MinHeap:
+    def __init__(self):
+        self.heap = []
+
+    def push(self, val: int) -> None:
+        heapq.heappush(self.heap, val)
+
+    def pop(self) -> int:
+        if not self.heap:
+            raise IndexError("Heap is empty")
+        return heapq.heappop(self.heap)
+
+    def peek(self) -> int:
+        if not self.heap:
+            raise IndexError("Heap is empty")
+        return self.heap[0]
+
+    def size(self) -> int:
+        return len(self.heap)

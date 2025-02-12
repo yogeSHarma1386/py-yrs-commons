@@ -1,5 +1,5 @@
 from ._nodes import NodeTree, NodeAVL, NodeDLL, NodeLL, Graph
-from .array import (
+from .array_sort import (
     binary_search,
     bubble_sort,
     selection_sort,
@@ -18,6 +18,7 @@ from .structures import (
     DoublyLinkedList,
     CircularQueue,
     DeQueue,
+    MinHeap,
 )
 from .treez import BinaryTree, BST, AVLTree, BinaryIndexedTree, Trie
 
@@ -47,6 +48,7 @@ __all__ += [
     "DoublyLinkedList",
     "CircularQueue",
     "DeQueue",
+    "MinHeap",
 ]
 
 __all__ += ["NodeTree", "NodeAVL", "NodeDLL", "NodeLL", "Graph"]
