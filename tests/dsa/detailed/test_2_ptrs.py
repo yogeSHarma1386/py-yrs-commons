@@ -1,8 +1,10 @@
+import pytest
+
 from yrs_commons.dsa.detailed.array_misc import find_pair_sum, remove_duplicates
 
 
+@pytest.mark.unit
 class TestTwoPointer:
-    # Two Pointer Tests
     def test_pair_sum_positive(self):
         assert find_pair_sum([2, 7, 11, 15], 9) == (0, 1)
         assert find_pair_sum([3, 2, 4], 6) == (0, 2)
