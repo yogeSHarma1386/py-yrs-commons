@@ -1,6 +1,9 @@
+import pytest
+
 from yrs_commons.dsa.detailed.array_misc import max_sum_sliding_window, find_anagrams
 
 
+@pytest.mark.unit
 class TestAlgorithms:
     # Sliding Window Tests
     def test_sliding_window_sum_positive(self):

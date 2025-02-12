@@ -1,1 +1,1 @@
-from yrs_commons.utils import *
+from yrs_commons.utils.annotations import *

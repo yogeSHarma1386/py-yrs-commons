@@ -3,6 +3,7 @@ import pytest
 from yrs_commons.dsa.detailed.recursion import fibonacci, power
 
 
+@pytest.mark.unit
 class TestRecursion:
     # Recursion Tests
     def test_fibonacci_positive(self):

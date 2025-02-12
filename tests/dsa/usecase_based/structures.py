@@ -1,4 +1,7 @@
+import unittest
 from datetime import timedelta, datetime
+
+import pytest
 
 from yrs_commons.dsa.usecase_based.structures import (
     TaskScheduler,
@@ -6,7 +9,8 @@ from yrs_commons.dsa.usecase_based.structures import (
 )
 
 
-class TestRealWorldExamples:
+@pytest.mark.unit
+class TestRealWorldExamples(unittest.TestCase):
     # ===== Task Scheduler Tests =====
     def test_task_scheduler_positive(self):
         scheduler = TaskScheduler()
