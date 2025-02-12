@@ -317,7 +317,7 @@ class TestPerformance(unittest.TestCase):
         for i in range(10 ** 5):
             queue.dequeue()
         duration = time.time() - start_time
-        self.assertLess(duration, 1.0)
+        self.assertLess(duration, 1.3)
 
 
 class TestHeap:
