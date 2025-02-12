@@ -156,26 +156,26 @@
 
 1. **Clarify Requirements:**
 
-- Users enter a long URL → Get a short URL
-- Redirect when accessing short URL
-- Optional expiry date for URLs
-- Expected QPS (queries per second)?
+  - Users enter a long URL → Get a short URL
+  - Redirect when accessing short URL
+  - Optional expiry date for URLs
+  - Expected QPS (queries per second)?
 
 2. **High-Level Design:**
 
-- **Client → API Gateway → URL Service → Database (SQL/NoSQL)**
-- Use **hashing + Base62 encoding** for short URLs.
-- Store in **Redis (cache) + DB (persistent storage)**.
+  - **Client → API Gateway → URL Service → Database (SQL/NoSQL)**
+  - Use **hashing + Base62 encoding** for short URLs.
+  - Store in **Redis (cache) + DB (persistent storage)**.
 
 3. **Scale Considerations:**
 
-- **Read-heavy system** → Use **caching** (Redis).
-- **High availability** → Use **replication & load balancers**.
+  - **Read-heavy system** → Use **caching** (Redis).
+  - **High availability** → Use **replication & load balancers**.
 
 4. **Failure Handling & Security:**
 
-- **Rate limiting** to prevent abuse.
-- **Expire old URLs** using TTL in Redis.
+  - **Rate limiting** to prevent abuse.
+  - **Expire old URLs** using TTL in Redis.
 
 ✅ **Explain trade-offs!** SQL for ACID, NoSQL for scalability.
 
