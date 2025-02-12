@@ -1,5 +1,5 @@
 from collections import deque
-from typing import Optional
+from typing import Optional, List
 
 from ._nodes import NodeTree, TrieNode, NodeAVL
 from ..utils.annotations import yrs_ignore_memorise
@@ -32,6 +32,30 @@ class BinaryTree:
         self.root.right = value
 
     # Tree Traversals
+    # Level Order Traversal (BFS)
+    def level_order(self, root):
+        if not root:
+            return []
+
+        result = []
+        queue = [root]
+
+        while queue:
+            level = []
+            level_size = len(queue)
+
+            for _ in range(level_size):
+                node = queue.pop(0)
+                level.append(node.val)
+
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+
+            result.append(level)
+        return result
+
     def inorder(self, root):
         result = []
         if root:
@@ -56,29 +80,55 @@ class BinaryTree:
             result.append(root.val)
         return result
 
-    # Level Order Traversal (BFS)
-    def level_order(self, root):
+    @classmethod
+    def zigzag_order(cls, root: Optional[NodeTree]) -> List[List[int]]:
         if not root:
             return []
 
         result = []
-        queue = [root]
+        queue = deque([root])
+        left_to_right = True
 
         while queue:
-            level = []
             level_size = len(queue)
+            current_level = []
 
             for _ in range(level_size):
-                node = queue.pop(0)
-                level.append(node.val)
+                node = queue.popleft()
+                current_level.append(node.val)
 
                 if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
 
-            result.append(level)
+            if not left_to_right:
+                current_level.reverse()
+
+            result.append(current_level)
+            left_to_right = not left_to_right
+
         return result
+
+    @classmethod
+    def diameter(cls, root: Optional[NodeTree]) -> int:
+        max_diameter = 0
+
+        def __custom_depth(node: Optional[NodeTree]) -> int:
+            nonlocal max_diameter
+            if not node:
+                return 0
+
+            left_depth = __custom_depth(node.left)
+            right_depth = __custom_depth(node.right)
+
+            # Update max diameter if current path is longer
+            max_diameter = max(max_diameter, left_depth + right_depth)
+
+            return 1 + max(left_depth, right_depth)
+
+        __custom_depth(root)
+        return max_diameter
 
     @classmethod
     def height(cls, root) -> int:

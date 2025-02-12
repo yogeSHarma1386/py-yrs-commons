@@ -123,6 +123,39 @@ class TestBinaryTree1:
         assert negative_tree.val == -1
         assert negative_tree.left.val == -2
 
+    def test_diameter_positive(self, sample_tree):
+        assert BinaryTree.diameter(sample_tree.root) == 3
+
+        # Create another tree with different diameter
+        root = NodeTree(1)
+        root.left = NodeTree(2)
+        root.left.left = NodeTree(3)
+        root.left.left.left = NodeTree(4)
+        assert BinaryTree.diameter(root) == 3
+
+    def test_diameter_boundary(self):
+        # Empty tree
+        assert BinaryTree.diameter(None) == 0
+        # Single node
+        assert BinaryTree.diameter(NodeTree(1)) == 0
+
+    def test_zigzag_traversal_positive(self, sample_tree):
+        assert BinaryTree.zigzag_order(sample_tree.root) == [[1], [3, 2], [4, 5]]
+
+        # Create another tree for testing
+        root = NodeTree(3)
+        root.left = NodeTree(9)
+        root.right = NodeTree(20)
+        root.right.left = NodeTree(15)
+        root.right.right = NodeTree(7)
+        assert BinaryTree.zigzag_order(root) == [[3], [20, 9], [15, 7]]
+
+    def test_zigzag_traversal_boundary(self):
+        # Empty tree
+        assert BinaryTree.zigzag_order(None) == []
+        # Single node
+        assert BinaryTree.zigzag_order(NodeTree(1)) == [[1]]
+
 
 @pytest.mark.unit
 class TestBinaryTree2(BaseTestTree):
