@@ -36,6 +36,9 @@ class TestStack(unittest.TestCase):
         self.assertEqual(self.stack.peek(), 1)
         self.assertEqual(self.stack.size(), 1)  # Peek shouldn't remove item
 
+        self.stack.clear()
+        self.assertEqual(self.stack.size(), 0)
+
     # Negative Tests
     def test_pop_empty(self):
         with self.assertRaises(IndexError):
@@ -126,9 +129,15 @@ class TestPriorityQueue(unittest.TestCase):
         self.assertEqual(len(self.pq.heap), 2)
 
     def test_extreme_priority(self):
+        with self.assertRaises(IndexError):
+            self.pq.peek()
         self.pq.push("task1", -float("inf"))
+        self.assertEqual(self.pq.peek(), "task1")
+        self.assertEqual(self.pq.size(), 1)
         self.pq.push("task2", float("inf"))
+        self.assertEqual(self.pq.size(), 2)
         self.assertEqual(self.pq.pop(), "task1")
+        self.assertEqual(self.pq.size(), 1)
 
 
 class TestLinkedList(unittest.TestCase):
@@ -151,6 +160,15 @@ class TestLinkedList(unittest.TestCase):
         self.ll.delete(1)
         self.assertEqual(self.ll.display(), [2])
 
+    def test_delete_nested(self):
+        self.ll.append(1)
+        self.ll.append(2)
+        self.ll.append(3)
+        self.ll.append(4)
+
+        self.ll.delete(3)
+        self.assertEqual(self.ll.display(), [1, 2, 4])
+
     # Negative Tests
     def test_delete_empty(self):
         self.ll.delete(1)  # Should not raise error
@@ -159,6 +177,8 @@ class TestLinkedList(unittest.TestCase):
     def test_delete_nonexistent(self):
         self.ll.append(1)
         self.ll.delete(2)  # Should not raise error
+        self.assertEqual(self.ll.search(2), False)
+        self.assertEqual(self.ll.search(1), True)
         self.assertEqual(self.ll.display(), [1])
 
     # Boundary Tests
@@ -202,6 +222,16 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.dll.delete(1)
         self.assertEqual(self.dll.display_forward(), [2])
 
+    def test_delete_nested(self):
+        self.dll.append(1)
+        self.dll.append(2)
+        self.dll.append(3)
+        self.dll.append(4)
+
+        self.dll.delete(3)
+        self.dll.delete(4)
+        self.assertEqual(self.dll.display_forward(), [1, 2])
+
     # Negative Tests
     def test_delete_empty(self):
         self.dll.delete(1)  # Should not raise error
@@ -226,11 +256,14 @@ class TestCircularQueue(unittest.TestCase):
         self.assertEqual(self.cq.dequeue(), 1)
 
     def test_circular_behavior(self):
+        with self.assertRaises(IndexError):
+            self.cq.get_front()
         self.cq.enqueue(1)
         self.cq.enqueue(2)
         self.cq.enqueue(3)
         self.assertEqual(self.cq.dequeue(), 1)
         self.cq.enqueue(4)  # Should wrap around
+        self.assertEqual(self.cq.get_front(), 2)
         self.assertEqual(self.cq.dequeue(), 2)
 
     # Negative Tests
@@ -340,6 +373,8 @@ class TestHeap:
         # Empty heap
         with pytest.raises(IndexError):
             heap.peek()
+        with pytest.raises(IndexError):
+            heap.pop()
 
     def test_heap_negative(self):  # Mixed positive and negative numbers
         heap = MinHeap()

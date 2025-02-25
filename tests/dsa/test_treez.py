@@ -184,6 +184,7 @@ class TestBinaryTree2(BaseTestTree):
         unbalanced.left = NodeTree(2)
         unbalanced.left.left = NodeTree(3)
         self.assertFalse(self.bt.is_balanced(unbalanced))
+        self.assertTrue(self.bt.is_balanced(unbalanced.left.left.left))
 
 
 @pytest.mark.unit
@@ -225,6 +226,36 @@ class TestAVLTree(BaseTestTree):
         for val in values:
             avl_root = self.avl.insert(avl_root, val)
         self.assertTrue(abs(self.avl.get_balance(avl_root)) <= 1)
+
+    def test_left_right_case(self):
+        self.avl.insert(self.avl_root.right.right, 10)
+        self.avl.insert(self.avl_root.right.right, 20)
+        self.assertEqual(self.avl.get_balance(self.avl_root), -1)
+
+        # Test height and balance
+        self.assertTrue(abs(self.avl.get_balance(self.avl_root)) <= 1)
+
+        # Test rotations
+        # Left-Left case
+        values = [3, 2, 1]
+        avl_root = None
+        for val in values:
+            avl_root = self.avl.insert(avl_root, val)
+        self.assertTrue(abs(self.avl.get_balance(avl_root)) <= 1)
+
+        # Right-Right case
+        values = [1, 2, 3]
+        avl_root = None
+        for val in values:
+            avl_root = self.avl.insert(avl_root, val)
+        self.assertTrue(abs(self.avl.get_balance(avl_root)) <= 1)
+        self.assertEqual(self.avl.get_balance(self.avl_root.right.right.right), 0)
+
+    @pytest.mark.skip(reason="not increasing coverage")
+    def test_right_left_case(self):
+        self.avl.insert(self.avl_root.right.left, 10)
+        self.avl.insert(self.avl_root.left.left, 20)
+        self.assertEqual(self.avl.get_balance(self.avl_root), -1)
 
 
 @pytest.mark.unit
@@ -337,6 +368,7 @@ class TestTrie(BaseTestTree2):
         trie.insert("apple")
         assert trie.search("apple")
         assert not trie.search("app")
+        assert not trie.search("peepal")
 
     def test_trie_prefix_match(self):
         trie = Trie()

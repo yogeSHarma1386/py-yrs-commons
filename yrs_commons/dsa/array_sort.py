@@ -6,12 +6,9 @@ def binary_search(arr, target):  # O(log n)
 
     while left <= right:
         mid = (left + right) // 2
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
+        if arr[mid] == target: return mid
+        elif arr[mid] < target: left = mid + 1
+        else: right = mid - 1
     return -1
 
 
@@ -27,28 +24,42 @@ def bubble_sort(arr):
 
 
 def selection_sort(arr):
-    """Selection sort implementation (returns a sorted copy)."""
+    """
+    Given an array of N items and L = 0, Selection Sort will:
+
+        - Find the position X of the smallest item in the range of [L...N−1],
+        - Swap X-th item with the L-th item,
+        - Increase the lower-bound L by 1 and repeat Step 1 until L = N-2.
+    """
     result = arr.copy()
     n = len(result)
+
     for i in range(n):
-        min_index = i
+        smallest = i
+
         for j in range(i + 1, n):
-            if result[j] < result[min_index]:
-                min_index = j
-        result[i], result[min_index] = result[min_index], result[i]
+            if result[j] < result[smallest]:
+                smallest = j
+        result[i], result[smallest] = result[smallest], result[i]
     return result
 
 
 def insertion_sort(arr):
-    """Insertion sort implementation (returns a sorted copy)."""
+    """
+    Insertion sort is similar to how most people arrange a hand of poker cards.
+        - Start with one card in your hand,
+        - Pick the next card and insert it into its proper sorted order,
+        - Repeat previous step for all cards.
+    """
     result = arr.copy()
     for i in range(1, len(result)):
-        key = result[i]
-        j = i - 1
-        while j >= 0 and result[j] > key:
-            result[j + 1] = result[j]
-            j -= 1
-        result[j + 1] = key
+        current = result[i]
+        prev_index = i - 1
+
+        while prev_index >= 0 and result[prev_index] > current:
+            result[prev_index + 1] = result[prev_index]
+            prev_index -= 1
+        result[prev_index + 1] = current
     return result
 
 
