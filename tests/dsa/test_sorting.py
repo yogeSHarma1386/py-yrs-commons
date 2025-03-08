@@ -1,6 +1,7 @@
 import unittest
 
 import pytest
+
 from yrs_commons.dsa import (
     bubble_sort,
     selection_sort,
@@ -8,6 +9,7 @@ from yrs_commons.dsa import (
     merge_sort,
     quick_sort,
     heap_sort,
+    topological_sort,
 )
 
 # Define common test cases: each tuple is (input_list, expected_sorted_list)
@@ -69,6 +71,51 @@ class TestSortingAlgorithms:
     @pytest.mark.parametrize("info, input_list, expected", test_cases)
     def test_heap_sort(self, info, input_list, expected):
         assert heap_sort(input_list) == expected
+
+
+@pytest.mark.unit
+class TestTopologicalSortAlgorithms:
+
+    def test_basic_dag(self):
+        number_of_nodes = 6
+        edges = [(5, 2), (5, 0), (4, 0), (4, 1), (2, 3), (3, 1)]
+        result = topological_sort(number_of_nodes, edges)
+
+        # Validate topological order using in-degree property
+        index_map = {node: i for i, node in enumerate(result)}
+        for source, destination in edges:
+            assert index_map[source] < index_map[destination], "Invalid topological order"
+
+    def test_graph_with_cycle(self):
+        number_of_nodes = 3
+        edges = [(0, 1), (1, 2), (2, 0)]  # Cycle: 0 → 1 → 2 → 0
+        with pytest.raises(ValueError, match="The graph contains a cycle"):
+            topological_sort(number_of_nodes, edges)
+
+    def test_single_node(self):
+        number_of_nodes = 1
+        edges = []
+        result = topological_sort(number_of_nodes, edges)
+        assert result == [0], "Single node graph should return [0]"
+
+    def test_multiple_independent_chains(self):
+        number_of_nodes = 5
+        edges = [(0, 2), (1, 3), (3, 4)]
+        result = topological_sort(number_of_nodes, edges)
+
+        # Ensure all nodes are present
+        assert sorted(result) == list(range(number_of_nodes)), "Topological order missing nodes"
+
+        # Validate order
+        index_map = {node: i for i, node in enumerate(result)}
+        for source, destination in edges:
+            assert index_map[source] < index_map[destination], "Invalid topological order"
+
+    def test_already_sorted_graph(self):
+        number_of_nodes = 4
+        edges = [(0, 1), (1, 2), (2, 3)]  # Already sorted order
+        result = topological_sort(number_of_nodes, edges)
+        assert result == [0, 1, 2, 3], "Graph with linear dependencies should return same order"
 
 
 @pytest.mark.unit

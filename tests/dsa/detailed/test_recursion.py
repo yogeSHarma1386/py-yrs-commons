@@ -23,5 +23,7 @@ class TestRecursion:
         assert power(3, 4) == 81
 
     def test_power_boundary(self):
+        with pytest.raises(ValueError):
+            power(5, -2)
         assert power(5, 0) == 1
         assert power(5, 1) == 5

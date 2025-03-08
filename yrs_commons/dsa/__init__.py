@@ -8,7 +8,7 @@ from .array_sort import (
     quick_sort,
     heap_sort,
 )
-from .graph import GraphAlgo
+from .graph import GraphAlgo, topological_sort
 from .stringz import lcs
 from .structures import (
     Stack,
