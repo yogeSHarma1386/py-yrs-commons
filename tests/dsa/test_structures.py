@@ -10,7 +10,7 @@ from yrs_commons.dsa import (
     DoublyLinkedList,
     CircularQueue,
     DeQueue,
-    MinHeap,
+    Heap,
 )
 
 
@@ -353,9 +353,9 @@ class TestPerformance(unittest.TestCase):
         self.assertLess(duration, 1.3)
 
 
-class TestHeap:
+class TestMinHeap:
     def test_heap_positive(self):  # Positive numbers
-        heap = MinHeap()
+        heap = Heap()
         numbers = [4, 1, 7, 3, 8, 5]
         for num in numbers:
             heap.push(num)
@@ -364,7 +364,7 @@ class TestHeap:
         assert [heap.pop() for _ in range(heap.size())] == [1, 3, 4, 5, 7, 8]
 
     def test_heap_boundary(self):
-        heap = MinHeap()
+        heap = Heap()
         # Single element
         heap.push(1)
         assert heap.peek() == 1
@@ -377,12 +377,42 @@ class TestHeap:
             heap.pop()
 
     def test_heap_negative(self):  # Mixed positive and negative numbers
-        heap = MinHeap()
+        heap = Heap()
         numbers = [-4, 1, -7, 3, -8, 5]
         for num in numbers:
             heap.push(num)
         assert heap.peek() == -8
 
+
+class TestMaxHeap:
+    def test_heap_positive(self):  # Positive numbers
+        heap = Heap(is_max_heap=True)
+        numbers = [4, 1, 7, 3, 8, 5]
+        for num in numbers:
+            heap.push(num)
+
+        assert heap.peek() == 8
+        assert [heap.pop() for _ in range(heap.size())] == sorted([1, 3, 4, 5, 7, 8], reverse=True)
+
+    def test_heap_boundary(self):
+        heap = Heap(is_max_heap=True)
+        # Single element
+        heap.push(1)
+        assert heap.peek() == 1
+        assert heap.pop() == 1
+
+        # Empty heap
+        with pytest.raises(IndexError):
+            heap.peek()
+        with pytest.raises(IndexError):
+            heap.pop()
+
+    def test_heap_negative(self):  # Mixed positive and negative numbers
+        heap = Heap(is_max_heap=True)
+        numbers = [-4, 1, -7, 3, -8, 5]
+        for num in numbers:
+            heap.push(num)
+        assert heap.peek() == 5
 
 if __name__ == "__main__":
     unittest.main()

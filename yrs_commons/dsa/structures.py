@@ -275,22 +275,31 @@ class DeQueue:  # Double-ended Queue
         return len(self.items)
 
 
-class MinHeap:
-    def __init__(self):
+class Heap:
+
+    class ProcessingError:
+        IS_EMPTY = IndexError("Heap is empty")
+
+
+    def __init__(self, is_max_heap=False):
         self.heap = []
+        self.is_max_heap = is_max_heap
+
+    def __value_wrapper(self, val):
+        return val * (-1 if self.is_max_heap else 1)
 
     def push(self, val: int) -> None:
-        heapq.heappush(self.heap, val)
+        heapq.heappush(self.heap, self.__value_wrapper(val))
 
     def pop(self) -> int:
         if not self.heap:
-            raise IndexError("Heap is empty")
-        return heapq.heappop(self.heap)
+            raise Heap.ProcessingError.IS_EMPTY
+        return self.__value_wrapper(heapq.heappop(self.heap))
 
     def peek(self) -> int:
         if not self.heap:
-            raise IndexError("Heap is empty")
-        return self.heap[0]
+            raise Heap.ProcessingError.IS_EMPTY
+        return self.__value_wrapper(self.heap[0])
 
     def size(self) -> int:
         return len(self.heap)
