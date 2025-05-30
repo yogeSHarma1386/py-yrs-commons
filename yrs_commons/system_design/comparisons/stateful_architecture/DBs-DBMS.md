@@ -1,6 +1,6 @@
 # Relational Database Management Systems (RDBMS) Comparison
 
-## Table 1: Core Characteristics
+## Core Characteristics
 
 | Database | Data Structures Used | Real-World Application | Why It's Used |
 |----------|---------------------|------------------------|---------------|
@@ -42,7 +42,7 @@
 - **IoT Data Collection**: Time-series data with appropriate engines
 - **Development**: MySQL-compatible development and testing
 
-## Table 2: CA Systems (Consistency + Availability)
+## CA Systems (Consistency + Availability)
 
 | Database | CAP Classification | Characteristics |
 |----------|-------------------|-----------------|
@@ -52,7 +52,7 @@
 | SQL Server | CA (with Always On) | Always On Availability Groups maintain consistency |
 | MariaDB | CA (single node) | Similar to MySQL with Galera Cluster options |
 
-## Table 3: CP Systems (Consistency + Partition Tolerance)
+## CP Systems (Consistency + Partition Tolerance)
 
 | Database | Configuration | Trade-offs |
 |----------|--------------|------------|
