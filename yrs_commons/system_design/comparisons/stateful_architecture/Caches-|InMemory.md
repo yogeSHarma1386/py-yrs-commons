@@ -28,37 +28,37 @@ ______________________________________________________________________
 | **Apache Ignite** | 100K+ ops/sec    | 1-5ms       | Low (rich features)             | High (compute + storage)        | High (distributed SQL)       |
 
 ### 2.2 Data Structure Support
-
-| **Cache** | **Basic KeyVal** | **Collections** | **Complex Objects** | **Transactions** | **SQL Queries** | **Streaming** |
-|-------------------|------------------|-----------------|---------------------|------------------|-----------------|-------------------|
-| **Caffeine** | ✅ | ✅ (via app) | ✅ | ❌ | ❌ | ❌ |
-| **Guava Cache** | ✅ | ✅ (via app) | ✅ | ❌ | ❌ | ❌ |
-| **Memcached** | ✅ | ❌ | ✅ (serialized) | ❌ | ❌ | ❌ |
-| **Redis** | ✅ | ✅ (native) | ✅ (serialized) | ✅ (limited) | ❌ | ✅ (Redis Streams) |
-| **Hazelcast** | ✅ | ✅ (distributed) | ✅ | ✅ | ✅ (limited) | ✅ (Jet) |
-| **Apache Ignite** | ✅ | ✅ (distributed) | ✅ | ✅ (ACID) | ✅ (full SQL) | ✅ |
+| **Cache**         | **Basic KeyVal** | **Collections**  | **Complex Objects** | **Transactions** | **SQL Queries** | **Streaming**     | **Negative Caching** |
+|-------------------|------------------|------------------|---------------------|------------------|-----------------|-------------------|----------------------|
+| **Caffeine**      | ✅                | ✅ (via app)      | ✅                   | ❌                | ❌               | ❌                 | ✅ (built-in)         |
+| **Guava Cache**   | ✅                | ✅ (via app)      | ✅                   | ❌                | ❌               | ❌                 | ✅ (built-in)         |
+| **Memcached**     | ✅                | ❌                | ✅ (serialized)      | ❌                | ❌               | ❌                 | ✅ (manual impl)      |
+| **Redis**         | ✅                | ✅ (native)       | ✅ (serialized)      | ✅ (limited)      | ❌               | ✅ (Redis Streams) | ✅ (TTL + null vals)  |
+| **Hazelcast**     | ✅                | ✅ (distributed)  | ✅                   | ✅                | ✅ (limited)     | ✅ (Jet)           | ✅ (TTL + null vals)  |
+| **Apache Ignite** | ✅                | ✅ (distributed)  | ✅                   | ✅ (ACID)         | ✅ (full SQL)    | ✅                 | ✅ (TTL + null vals)  |
+| **Amazon DAX**    | ✅                | ✅ (all DynamoDB) | ✅ (JSON docs)       | ✅ (DynamoDB)     | ❌               | ❌ (DynamoDB does) | ✅ (TTL support)      |
 
 ### 2.3 Scalability and Distribution
 
-| **Cache** | **Scaling Model** | **Max Nodes** | **Partitioning** | **Replication** | **Consistency Model** |
-|-----------|------------------|---------------|------------------|-----------------|---------------------|
-| **Caffeine** | Vertical only | 1 (single JVM) | ❌ | ❌ | Strong (local) |
-| **Guava Cache** | Vertical only | 1 (single JVM) | ❌ | ❌ | Strong (local) |
-| **Memcached** | Horizontal (client-side) | 100s | Client sharding | ❌ | None |
-| **Redis** | Horizontal (cluster) | 1000 | Hash slots | Master-Replica | Eventual |
-| **Hazelcast** | Horizontal (peer-to-peer) | 100s | Automatic | Configurable backups | Strong/Eventual |
-| **Apache Ignite** | Horizontal (server nodes) | 100s | Automatic | Synchronous/Asynchronous | ACID/Eventual |
+| **Cache**         | **Scaling Model**         | **Max Nodes**  | **Partitioning** | **Replication**          | **Consistency Model** |
+|-------------------|---------------------------|----------------|------------------|--------------------------|-----------------------|
+| **Caffeine**      | Vertical only             | 1 (single JVM) | ❌                | ❌                        | Strong (local)        |
+| **Guava Cache**   | Vertical only             | 1 (single JVM) | ❌                | ❌                        | Strong (local)        |
+| **Memcached**     | Horizontal (client-side)  | 100s           | Client sharding  | ❌                        | None                  |
+| **Redis**         | Horizontal (cluster)      | 1000           | Hash slots       | Master-Replica           | Eventual              |
+| **Hazelcast**     | Horizontal (peer-to-peer) | 100s           | Automatic        | Configurable backups     | Strong/Eventual       |
+| **Apache Ignite** | Horizontal (server nodes) | 100s           | Automatic        | Synchronous/Asynchronous | ACID/Eventual         |
 
 ### 2.4 Fault Tolerance and Persistence
 
-| **Cache** | **High Availability** | **Automatic Failover** | **Data Persistence** | **Backup Strategy** | **Split-Brain Protection** |
-|-----------|----------------------|------------------------|---------------------|--------------------|-----------------------|
-| **Caffeine** | JVM-level only | ❌ | ❌ | ❌ | N/A |
-| **Guava Cache** | JVM-level only | ❌ | ❌ | ❌ | N/A |
-| **Memcached** | Client-handled | ❌ | ❌ | ❌ | ❌ |
-| **Redis** | Redis Sentinel | ✅ | RDB + AOF | Master-Replica | Redis Sentinel |
-| **Hazelcast** | Built-in | ✅ | Configurable | Hot backup | ✅ |
-| **Apache Ignite** | Built-in | ✅ | Native persistence | Multi-tier storage | ✅ |
+| **Cache**         | **High Availability** | **Automatic Failover** | **Data Persistence** | **Backup Strategy** | **Split-Brain Protection** |
+|-------------------|-----------------------|------------------------|----------------------|---------------------|----------------------------|
+| **Caffeine**      | JVM-level only        | ❌                      | ❌                    | ❌                   | N/A                        |
+| **Guava Cache**   | JVM-level only        | ❌                      | ❌                    | ❌                   | N/A                        |
+| **Memcached**     | Client-handled        | ❌                      | ❌                    | ❌                   | ❌                          |
+| **Redis**         | Redis Sentinel        | ✅                      | RDB + AOF            | Master-Replica      | Redis Sentinel             |
+| **Hazelcast**     | Built-in              | ✅                      | Configurable         | Hot backup          | ✅                          |
+| **Apache Ignite** | Built-in              | ✅                      | Native persistence   | Multi-tier storage  | ✅                          |
 
 ## Key Terms Explained
 
@@ -73,23 +73,23 @@ ______________________________________________________________________
 
 ### **Amazon DynamoDB Accelerator (DAX)**
 
-| **Aspect** | **Details** |
-|------------|-------------|
-| **Throughput** | Millions of requests/sec |
-| **Latency** | Microseconds (10x faster than DynamoDB) |
-| **Memory Efficiency** | Managed service, automatic scaling |
-| **CPU Overhead** | Minimal (fully managed) |
-| **Network Overhead** | Optimized for DynamoDB protocol |
-| **Data Types** | DynamoDB items (JSON-like documents) |
-| **Collections** | ✅ (DynamoDB collections) |
-| **Complex Objects** | ✅ (nested JSON structures) |
-| **Transactions** | ✅ (DynamoDB transactions) |
-| **SQL Queries** | ❌ (NoSQL only, PartiQL support) |
-| **Streaming** | ❌ (use DynamoDB Streams separately) |
-| **Scaling Model** | Vertical (instance types) + Horizontal (multi-AZ) |
-| **Max Nodes** | 10 per cluster |
-| **Partitioning** | Automatic (based on DynamoDB partition key) |
-| **Replication** | Multi-AZ automatic replication |
+| **Aspect**            | **Details**                                           |
+|-----------------------|-------------------------------------------------------|
+| **Throughput**        | Millions of requests/sec                              |
+| **Latency**           | Microseconds (10x faster than DynamoDB)               |
+| **Memory Efficiency** | Managed service, automatic scaling                    |
+| **CPU Overhead**      | Minimal (fully managed)                               |
+| **Network Overhead**  | Optimized for DynamoDB protocol                       |
+| **Data Types**        | DynamoDB items (JSON-like documents)                  |
+| **Collections**       | ✅ (DynamoDB collections)                              |
+| **Complex Objects**   | ✅ (nested JSON structures)                            |
+| **Transactions**      | ✅ (DynamoDB transactions)                             |
+| **SQL Queries**       | ❌ (NoSQL only, PartiQL support)                       |
+| **Streaming**         | ❌ (use DynamoDB Streams separately)                   |
+| **Scaling Model**     | Vertical (instance types) + Horizontal (multi-AZ)     |
+| **Max Nodes**         | 10 per cluster                                        |
+| **Partitioning**      | Automatic (based on DynamoDB partition key)           |
+| **Replication**       | Multi-AZ automatic replication                        |
 | **Consistency Model** | Eventually consistent (DynamoDB eventual consistency) |
 
 **DAX Technical Details:**
@@ -432,26 +432,26 @@ public void updateUser(User user) {
 
 ### 7.1 Architecture and Core Design
 
-| **Aspect** | **Redis** | **Hazelcast** | **Apache Ignite** |
-|------------|-----------|---------------|-------------------|
-| **Architecture Pattern** | Single-threaded event loop | Multi-threaded peer-to-peer | Multi-tier storage with compute grid |
-| **Deployment Model** | Master-Replica or Cluster | Embedded or Client-Server | Embedded or Server mode |
-| **Memory Model** | In-memory with optional persistence | In-memory with overflow to disk | Memory + disk (durable memory) |
-| **Threading Model** | Single-threaded commands, multi-threaded I/O | Multi-threaded throughout | Multi-threaded with work stealing |
-| **Storage Engine** | Hash tables + specialized structures | Partitioned hash maps | B+ trees + hash indexes |
-| **Network Protocol** | RESP (Redis Serialization Protocol) | Hazelcast proprietary binary | Custom binary protocol |
+| **Aspect**               | **Redis**                                    | **Hazelcast**                   | **Apache Ignite**                    |
+|--------------------------|----------------------------------------------|---------------------------------|--------------------------------------|
+| **Architecture Pattern** | Single-threaded event loop                   | Multi-threaded peer-to-peer     | Multi-tier storage with compute grid |
+| **Deployment Model**     | Master-Replica or Cluster                    | Embedded or Client-Server       | Embedded or Server mode              |
+| **Memory Model**         | In-memory with optional persistence          | In-memory with overflow to disk | Memory + disk (durable memory)       |
+| **Threading Model**      | Single-threaded commands, multi-threaded I/O | Multi-threaded throughout       | Multi-threaded with work stealing    |
+| **Storage Engine**       | Hash tables + specialized structures         | Partitioned hash maps           | B+ trees + hash indexes              |
+| **Network Protocol**     | RESP (Redis Serialization Protocol)          | Hazelcast proprietary binary    | Custom binary protocol               |
 
 ### 7.2 Performance Deep Dive
 
-| **Benchmark** | **Redis** | **Hazelcast** | **Apache Ignite** |
-|---------------|-----------|---------------|-------------------|
-| **Simple GET operations** | 1M+ ops/sec | 200K ops/sec | 150K ops/sec |
-| **Complex operations** | 100K ops/sec | 50K ops/sec | 100K ops/sec |
-| **Bulk operations** | High (pipelining) | Very High (batch) | Very High (batch + SQL) |
-| **Memory footprint/entry** | 60-100 bytes | 80-120 bytes | 100-200 bytes |
-| **Startup time** | \<1 second | 5-30 seconds | 10-60 seconds |
-| **Query latency (SQL)** | N/A | 5-50ms | 1-20ms |
-| **Cross-node operations** | 1-5ms (cluster) | 2-10ms | 3-15ms |
+| **Benchmark**              | **Redis**         | **Hazelcast**     | **Apache Ignite**       |
+|----------------------------|-------------------|-------------------|-------------------------|
+| **Simple GET operations**  | 1M+ ops/sec       | 200K ops/sec      | 150K ops/sec            |
+| **Complex operations**     | 100K ops/sec      | 50K ops/sec       | 100K ops/sec            |
+| **Bulk operations**        | High (pipelining) | Very High (batch) | Very High (batch + SQL) |
+| **Memory footprint/entry** | 60-100 bytes      | 80-120 bytes      | 100-200 bytes           |
+| **Startup time**           | \<1 second        | 5-30 seconds      | 10-60 seconds           |
+| **Query latency (SQL)**    | N/A               | 5-50ms            | 1-20ms                  |
+| **Cross-node operations**  | 1-5ms (cluster)   | 2-10ms            | 3-15ms                  |
 
 ### 7.3 Data Management Capabilities
 
@@ -642,3 +642,131 @@ public void updateUser(User user) {
 | **Time to production** | 2-4 weeks | 6-12 weeks | 12-24 weeks |
 | **Performance ROI** | 10-50x (simple operations) | 5-20x (complex operations) | 2-10x (analytical workloads) |
 | **Operational efficiency** | High (mature tooling) | Medium (enterprise tools) | Low (requires expertise) |
+
+## 🎯 Key Differences Summary: Caching Components
+
+### Quick Reference Matrix
+
+| **Cache Type**    | **Primary Purpose**      | **Architecture**       | **Latency**  | **Persistence** | **Distribution** | **Best For**                |
+|-------------------|--------------------------|------------------------|--------------|-----------------|------------------|-----------------------------|
+| **Caffeine**      | Local app cache          | In-process JVM         | <100ns       | ❌               | ❌                | Single JVM apps             |
+| **Guava Cache**   | Local app cache          | In-process JVM         | <100ns       | ❌               | ❌                | Java apps with auto-loading |
+| **Memcached**     | Simple distributed cache | Client-side sharding   | 0.1-0.3ms    | ❌               | ✅ (manual)       | Session storage, simple K/V |
+| **Redis**         | Versatile cache/store    | Master-replica/cluster | 0.1-0.5ms    | ✅ (optional)    | ✅                | Rich data types, pub/sub    |
+| **Hazelcast**     | Java data grid           | Peer-to-peer           | 1-3ms        | ✅ (optional)    | ✅ (automatic)    | Java microservices, compute |
+| **Apache Ignite** | HTAP platform            | Multi-tier storage     | 1-5ms        | ✅ (built-in)    | ✅ (automatic)    | SQL queries, analytics      |
+| **DAX**           | DynamoDB accelerator     | Managed cluster        | Microseconds | ✅               | ✅                | DynamoDB-only workloads     |
+| **Varnish**       | HTTP reverse proxy       | Event-driven           | <1ms         | ❌               | ❌                | Web content caching         |
+
+### 🔑 Core Differentiators
+
+#### **1. Local vs Distributed**
+- **Local (Caffeine, Guava)**: Zero network overhead, nanosecond latency, no serialization
+- **Distributed (Redis, Memcached, Hazelcast, Ignite)**: Network calls, millisecond latency, serialization required
+
+#### **2. Simplicity vs Features**
+- **Simple (Memcached)**: Just key-value, extremely fast, minimal features
+- **Feature-rich (Redis)**: Data structures, pub/sub, streams, modules
+- **Platform (Ignite)**: SQL, compute grid, machine learning, transactions
+
+#### **3. Memory-Only vs Persistent**
+- **Ephemeral (Memcached, Caffeine)**: Data lost on restart
+- **Optional Persistence (Redis, Hazelcast)**: Can survive restarts
+- **Durable by Design (Ignite)**: Built for persistent workloads
+
+#### **4. Language Support**
+- **Java-centric (Caffeine, Guava, Hazelcast)**: Best for JVM ecosystems
+- **Language-agnostic (Redis, Memcached)**: Excellent client libraries for all languages
+- **Multi-platform (Ignite)**: Native support for Java, .NET, C++
+
+### 📊 Decision Criteria Summary
+
+| **Choose...** | **When You Need...** |
+|---------------|---------------------|
+| **Caffeine** | • Fastest possible local cache<br>• No network calls<br>• Single JVM application |
+| **Memcached** | • Dead-simple distributed cache<br>• Maximum throughput<br>• Minimal operational overhead |
+| **Redis** | • Rich data structures (lists, sets, sorted sets)<br>• Pub/sub messaging<br>• Mature ecosystem with modules |
+| **Hazelcast** | • Java-first distributed computing<br>• Embedded deployment in apps<br>• Near-cache with automatic sync |
+| **Apache Ignite** | • SQL queries on cached data<br>• ACID transactions<br>• Compute colocation with data |
+| **DAX** | • DynamoDB acceleration only<br>• Managed service on AWS<br>• Microsecond latency |
+| **Varnish** | • HTTP-specific caching<br>• Complex caching rules<br>• Massive concurrent connections |
+
+### 🚀 Performance Summary
+
+#### **Latency Hierarchy**
+1. **Nanoseconds**: Caffeine, Guava (local, in-process)
+2. **Microseconds**: DAX (specialized hardware), Varnish (HTTP-optimized)
+3. **Sub-millisecond**: Redis, Memcached (simple operations)
+4. **Low milliseconds**: Hazelcast, Apache Ignite (distributed operations)
+
+#### **Throughput Champions**
+- **Highest**: Memcached (10M+ ops/sec single node)
+- **Very High**: Caffeine, Redis (1-10M ops/sec)
+- **High**: Hazelcast, Ignite (100K-1M ops/sec)
+
+### 💰 Cost Efficiency Ranking
+
+1. **Caffeine/Guava**: $0 (uses existing app memory)
+2. **Memcached**: $ (minimal resources)
+3. **Redis**: $$ (moderate resources)
+4. **Hazelcast**: $$$ (higher memory, Enterprise features)
+5. **Apache Ignite**: $$$$ (heavy resources, complex operations)
+6. **DAX**: $$$ (AWS managed service premium)
+
+### 🎨 Architecture Patterns
+
+| **Pattern**       | **Best Cache**      | **Example Use Case**               |
+|-------------------|---------------------|------------------------------------|
+| **Cache-Aside**   | Redis, Memcached    | Database query results             |
+| **Write-Through** | Hazelcast, Ignite   | Consistent updates                 |
+| **Near Cache**    | Hazelcast + Local   | Microservices with hot data        |
+| **HTAP**          | Apache Ignite       | Real-time analytics + transactions |
+| **CDN Edge**      | Varnish, CloudFront | Static content delivery            |
+
+### ⚡ Quick Decision Tree
+
+```
+Need caching?
+├── Single Application?
+│   ├── Java? → Caffeine (performance) or Guava (features)
+│   └── Other? → Language-specific (e.g., Python dict with TTL)
+└── Distributed?
+    ├── Simple K/V only? → Memcached
+    ├── Need data structures? → Redis
+    ├── Using DynamoDB? → DAX
+    ├── Java ecosystem? → Hazelcast
+    └── Need SQL? → Apache Ignite
+
+
+Redis Conflict Resolution
+Scenario: Two clients update same key
+├── Redis Cluster: Last write wins (wall clock)
+├── Redis Sentinel: No conflict (single master)
+└── Redis Enterprise: 
+    ├── CRDTs for automatic resolution
+    └── Active-Active geo-replication
+```
+
+### 🎯 Conflict Resolution Decision Matrix
+
+| **Requirement**                | **Best Choice**  | **Strategy**                                                            |
+|--------------------------------|------------------|-------------------------------------------------------------------------|
+| **Strong consistency needed**  | Apache Ignite    | ACID transactions with 2PC                                              |
+| **High availability priority** | Redis            | LWW with eventual consistency                                           |
+| **Custom conflict logic**      | Hazelcast        | Pluggable merge policies (PUT_IF_ABSENT, HIGHER_VERSION, LATEST_UPDATE) |
+| **Managed solution**           | DAX              | Let DynamoDB handle it                                                  |
+| **Conflict-free by design**    | Redis Enterprise | CRDTs (counters, sets, registers)                                       |
+| **Simple cache**               | Memcached        | Avoid conflicts via sharding                                            |
+
+### ⚠️ Common Conflict Scenarios
+
+| **Scenario**           | **Impact**                   | **Mitigation**                               |
+|------------------------|------------------------------|----------------------------------------------|
+| **Split-brain**        | Different data in partitions | Quorum-based decisions, odd number of nodes  |
+| **Clock skew**         | Wrong LWW resolution         | Use logical clocks, version vectors          |
+| **Replication lag**    | Stale reads                  | Read from primary, sync replication          |
+| **Concurrent updates** | Lost updates                 | Optimistic locking, CAS operations           |
+| **Network partition**  | Inconsistent state           | Partition tolerance settings, merge policies |
+
+CAS = Compare-And-Swap (also called Compare-And-Set) - An atomic operation that modifies a value only if it matches an expected value.
+i.e. version-update on writes.
