@@ -916,15 +916,25 @@ The State Machine DP Pattern is useful when:
 | n ≤ 10^5, 2D grid with m ≤ 10^5 | O(n×m) | Grid traversal, 2D prefix sums | Grid path problems, 2D range queries |
 | n ≤ 10^3, states ≤ 2^20 | O(n × 2^n) | Bitmask DP, Meet in the middle | Subset problems, TSP variants |
 
+## Books
+- https://github.com/Tippu1987/System-Design
+- https://dokumen.pub/system-design-interview-an-insiders-guide-volume-2-1736049119-9781736049112.html
+- https://blog.bytebytego.com/p/free-system-design-pdf-158-pages
 
-# https://www.scaler.com/topics/bisect-python/
-# https://blog.algomaster.io/p/15-leetcode-patterns
-# https://blog.algomaster.io/p/20-patterns-to-master-dynamic-programming
-# https://www.lintcode.com/problem/678/description?fromId=291&_from=collection
-# https://bytebytego.com/courses/system-design-interview/back-of-the-envelope-estimation
-# https://medium.com/@roopa.kushtagi/the-cap-theorem-why-cant-i-have-it-all-d98018b7101a 
-# https://medium.com/@sentalkssane/a-beginners-guide-to-system-design-76d64689788b 
-# https://github.com/donnemartin/system-design-primer
+
+## Links
+- https://www.techinterviewhandbook.org/negotiation/
+- https://www.codechef.com/roadmap/data-structures-and-algorithms
+- https://shivangsnewsletter.com/
+- https://learnsoftwarearchitecture.com/
+- https://www.scaler.com/topics/bisect-python/
+- https://blog.algomaster.io/p/15-leetcode-patterns
+- https://blog.algomaster.io/p/20-patterns-to-master-dynamic-programming
+- https://www.lintcode.com/problem/678/description?fromId=291&_from=collection
+- https://bytebytego.com/courses/system-design-interview/back-of-the-envelope-estimation
+- https://medium.com/@roopa.kushtagi/the-cap-theorem-why-cant-i-have-it-all-d98018b7101a 
+- https://medium.com/@sentalkssane/a-beginners-guide-to-system-design-76d64689788b 
+- https://github.com/donnemartin/system-design-primer
 ### [Reddit HLD](https://www.reddit.com/r/ExperiencedDevs/comments/1gz9ksj/my_senior_engineer_interview_experiences/?share_id=jzxGMYyKNsgB5ljrLQqHa&utm_content=2&utm_medium=android_app&utm_name=androidcss&utm_source=share&utm_term=1)
-# https://www3.cs.stonybrook.edu/~skiena/373/videos/
-# https://www.youtube.com/@TechPrepYT/shorts
+- https://www3.cs.stonybrook.edu/~skiena/373/videos/
+- https://www.youtube.com/@TechPrepYT/shorts
