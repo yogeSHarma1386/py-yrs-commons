@@ -84,98 +84,98 @@
 
 ## Latency Requirements
 
-| Aspect | Cassandra | HBase | DynamoDB | ScyllaDB | Accumulo |
-|--------|-----------|-------|----------|----------|----------|
-| **Read Latency** | 1-10ms typical | 1-100ms | <10ms SLA | <1ms possible | 10-100ms |
-| **Write Latency** | 1-10ms typical | 1-50ms | <10ms SLA | <1ms possible | 10-50ms |
-| **Scan Performance** | Good with proper design | Excellent (coprocessors) | Limited by design | Excellent | Very good |
-| **Secondary Index** | Local indexes | Phoenix SQL layer | GSI separate cost | Local indexes | Accumulo iterators |
-| **Key Difference** | Predictable performance | Batch-optimized | Guaranteed SLA | Lowest latency | Security overhead |
+| Aspect               | Cassandra               | HBase                    | DynamoDB          | ScyllaDB       | Accumulo           |
+|----------------------|-------------------------|--------------------------|-------------------|----------------|--------------------|
+| **Read Latency**     | 1-10ms typical          | 1-100ms                  | <10ms SLA         | <1ms possible  | 10-100ms           |
+| **Write Latency**    | 1-10ms typical          | 1-50ms                   | <10ms SLA         | <1ms possible  | 10-50ms            |
+| **Scan Performance** | Good with proper design | Excellent (coprocessors) | Limited by design | Excellent      | Very good          |
+| **Secondary Index**  | Local indexes           | Phoenix SQL layer        | GSI separate cost | Local indexes  | Accumulo iterators |
+| **Key Difference**   | Predictable performance | Batch-optimized          | Guaranteed SLA    | Lowest latency | Security overhead  |
 
 ## Read/Write Workload Patterns
 
-| Aspect | Cassandra | HBase | DynamoDB | ScyllaDB | Accumulo |
-|--------|-----------|-------|----------|----------|----------|
-| **Write Optimization** | Excellent (append-only) | Very good (WAL+MemStore) | Excellent (managed) | Best (C++ efficiency) | Good (similar to HBase) |
-| **Read Patterns** | Partition key required | Row key or scan | Primary key or index | Same as Cassandra | Row key or scan |
-| **Compaction Impact** | Tunable strategies | Major/minor compactions | Managed automatically | Incremental compaction | Similar to HBase |
-| **Bulk Loading** | SSTableloader | BulkLoad API | Batch operations | SSTableloader | Bulk import tools |
-| **Key Difference** | Write-optimized | Scan-optimized | Zero management | Performance-optimized | Security-aware ops |
+| Aspect                 | Cassandra               | HBase                    | DynamoDB              | ScyllaDB               | Accumulo                |
+|------------------------|-------------------------|--------------------------|-----------------------|------------------------|-------------------------|
+| **Write Optimization** | Excellent (append-only) | Very good (WAL+MemStore) | Excellent (managed)   | Best (C++ efficiency)  | Good (similar to HBase) |
+| **Read Patterns**      | Partition key required  | Row key or scan          | Primary key or index  | Same as Cassandra      | Row key or scan         |
+| **Compaction Impact**  | Tunable strategies      | Major/minor compactions  | Managed automatically | Incremental compaction | Similar to HBase        |
+| **Bulk Loading**       | SSTableloader           | BulkLoad API             | Batch operations      | SSTableloader          | Bulk import tools       |
+| **Key Difference**     | Write-optimized         | Scan-optimized           | Zero management       | Performance-optimized  | Security-aware ops      |
 
 ## Data Structure Requirements
 
-| Aspect | Cassandra | HBase | DynamoDB | ScyllaDB | Accumulo |
-|--------|-----------|-------|----------|----------|----------|
-| **Column Families** | Static and dynamic | Flexible columns | Attributes in items | Same as Cassandra | Column visibility labels |
-| **Wide Rows** | Excellent support | Excellent support | Limited by 400KB | Excellent support | Excellent support |
-| **Time-Series** | Time-based partitions | TTL support | TTL on items | Same as Cassandra | Version iterators |
-| **Collections** | Sets, lists, maps | Qualifiers only | Lists, maps, sets | Same as Cassandra | Custom iterators |
-| **Key Difference** | CQL abstraction | Raw column access | Document-like model | Cassandra-compatible | Cell-level security |
+| Aspect              | Cassandra             | HBase             | DynamoDB            | ScyllaDB             | Accumulo                 |
+|---------------------|-----------------------|-------------------|---------------------|----------------------|--------------------------|
+| **Column Families** | Static and dynamic    | Flexible columns  | Attributes in items | Same as Cassandra    | Column visibility labels |
+| **Wide Rows**       | Excellent support     | Excellent support | Limited by 400KB    | Excellent support    | Excellent support        |
+| **Time-Series**     | Time-based partitions | TTL support       | TTL on items        | Same as Cassandra    | Version iterators        |
+| **Collections**     | Sets, lists, maps     | Qualifiers only   | Lists, maps, sets   | Same as Cassandra    | Custom iterators         |
+| **Key Difference**  | CQL abstraction       | Raw column access | Document-like model | Cassandra-compatible | Cell-level security      |
 
 ## Consistency & Availability Requirements
 
-| Aspect | Cassandra | HBase | DynamoDB | ScyllaDB | Accumulo |
-|--------|-----------|-------|----------|----------|----------|
-| **Consistency Levels** | 9 levels (ANY to ALL) | Strong only | Eventually/Strong | Same as Cassandra | Strong consistency |
-| **Multi-DC Support** | Built-in, excellent | Master/slave regions | Global Tables | Built-in, excellent | Similar to HBase |
-| **Failover Time** | <30 seconds | 1-3 minutes | Automatic | <30 seconds | 1-3 minutes |
-| **Repair Process** | Anti-entropy repair | HDFS handles it | Managed | Self-healing++ | HDFS-based |
-| **Key Difference** | Most flexible | Hadoop reliability | Fully managed | Faster recovery | Government-grade |
+| Aspect                 | Cassandra             | HBase                | DynamoDB          | ScyllaDB            | Accumulo           |
+|------------------------|-----------------------|----------------------|-------------------|---------------------|--------------------|
+| **Consistency Levels** | 9 levels (ANY to ALL) | Strong only          | Eventually/Strong | Same as Cassandra   | Strong consistency |
+| **Multi-DC Support**   | Built-in, excellent   | Master/slave regions | Global Tables     | Built-in, excellent | Similar to HBase   |
+| **Failover Time**      | <30 seconds           | 1-3 minutes          | Automatic         | <30 seconds         | 1-3 minutes        |
+| **Repair Process**     | Anti-entropy repair   | HDFS handles it      | Managed           | Self-healing++      | HDFS-based         |
+| **Key Difference**     | Most flexible         | Hadoop reliability   | Fully managed     | Faster recovery     | Government-grade   |
 
 ## Replication & Distribution Techniques
 
-| Aspect | Cassandra | HBase | DynamoDB | ScyllaDB | Accumulo |
-|--------|-----------|-------|----------|----------|----------|
-| **Partitioning** | Consistent hashing | Region splits | Hash/range keys | Same as Cassandra | Range partitioning |
-| **Replication** | N replicas per DC | HDFS replication | Managed 3x | Same as Cassandra | HDFS replication |
-| **Topology** | Peer-to-peer | Master/RegionServer | Managed service | Peer-to-peer | Master/TabletServer |
-| **Cross-DC** | Multiple strategies | Active/passive | Global Tables | Same as Cassandra | Active/passive |
-| **Key Difference** | True masterless | HDFS-dependent | Zero configuration | Better performance | Security-first design |
+| Aspect             | Cassandra           | HBase               | DynamoDB           | ScyllaDB           | Accumulo              |
+|--------------------|---------------------|---------------------|--------------------|--------------------|-----------------------|
+| **Partitioning**   | Consistent hashing  | Region splits       | Hash/range keys    | Same as Cassandra  | Range partitioning    |
+| **Replication**    | N replicas per DC   | HDFS replication    | Managed 3x         | Same as Cassandra  | HDFS replication      |
+| **Topology**       | Peer-to-peer        | Master/RegionServer | Managed service    | Peer-to-peer       | Master/TabletServer   |
+| **Cross-DC**       | Multiple strategies | Active/passive      | Global Tables      | Same as Cassandra  | Active/passive        |
+| **Key Difference** | True masterless     | HDFS-dependent      | Zero configuration | Better performance | Security-first design |
 
 ## Conflict Resolution Strategies
 
-| Aspect | Cassandra | HBase | DynamoDB | ScyllaDB | Accumulo |
-|--------|-----------|-------|----------|----------|----------|
-| **Write Conflicts** | Last-write-wins | No conflicts (consistent) | Last-write-wins | Last-write-wins | No conflicts |
-| **Timestamp Handling** | Client or server | Server-assigned | Server-managed | Same as Cassandra | Server-assigned |
-| **Custom Resolution** | Application-level | Not needed | Limited options | Application-level | Not needed |
-| **Multi-DC Conflicts** | LWW or custom | Active/passive only | Managed by service | LWW or custom | Active/passive |
-| **Key Difference** | Requires planning | Avoids conflicts | Simple approach | Same as Cassandra | Consistency model |
+| Aspect                 | Cassandra         | HBase                     | DynamoDB           | ScyllaDB          | Accumulo          |
+|------------------------|-------------------|---------------------------|--------------------|-------------------|-------------------|
+| **Write Conflicts**    | Last-write-wins   | No conflicts (consistent) | Last-write-wins    | Last-write-wins   | No conflicts      |
+| **Timestamp Handling** | Client or server  | Server-assigned           | Server-managed     | Same as Cassandra | Server-assigned   |
+| **Custom Resolution**  | Application-level | Not needed                | Limited options    | Application-level | Not needed        |
+| **Multi-DC Conflicts** | LWW or custom     | Active/passive only       | Managed by service | LWW or custom     | Active/passive    |
+| **Key Difference**     | Requires planning | Avoids conflicts          | Simple approach    | Same as Cassandra | Consistency model |
 
 ## Scaling Approaches
 
-| Aspect | Cassandra | HBase | DynamoDB | ScyllaDB | Accumulo |
-|--------|-----------|-------|----------|----------|----------|
-| **Adding Nodes** | Stream data automatically | Add RegionServers | Automatic | Stream data (faster) | Add TabletServers |
-| **Linear Scalability** | Excellent proven | Very good | Perfect (managed) | Better than Cassandra | Good |
-| **Auto-scaling** | No (manual) | No (manual) | Yes | No (manual) | No |
-| **Data Rebalancing** | Automatic (vnodes) | Automatic splits | Automatic | Automatic (faster) | Automatic splits |
-| **Key Difference** | Easiest to scale | HDFS complexity | Truly elastic | Fastest rebalancing | Security considerations |
+| Aspect                 | Cassandra                 | HBase             | DynamoDB          | ScyllaDB              | Accumulo                |
+|------------------------|---------------------------|-------------------|-------------------|-----------------------|-------------------------|
+| **Adding Nodes**       | Stream data automatically | Add RegionServers | Automatic         | Stream data (faster)  | Add TabletServers       |
+| **Linear Scalability** | Excellent proven          | Very good         | Perfect (managed) | Better than Cassandra | Good                    |
+| **Auto-scaling**       | No (manual)               | No (manual)       | Yes               | No (manual)           | No                      |
+| **Data Rebalancing**   | Automatic (vnodes)        | Automatic splits  | Automatic         | Automatic (faster)    | Automatic splits        |
+| **Key Difference**     | Easiest to scale          | HDFS complexity   | Truly elastic     | Fastest rebalancing   | Security considerations |
 
 ## Operational Considerations
 
-| Aspect | Cassandra | HBase | DynamoDB | ScyllaDB | Accumulo |
-|--------|-----------|-------|----------|----------|----------|
-| **Complexity** | Medium-High | High | None | Medium | High |
-| **JVM Tuning** | Critical | Critical | N/A | Not needed (C++) | Critical |
-| **Compaction Tuning** | Important | Important | Automatic | Self-tuning | Important |
-| **Monitoring Tools** | DataStax, OSS tools | Ambari, Cloudera | CloudWatch | ScyllaDB Monitoring | Similar to HBase |
-| **Key Difference** | Well-documented | Hadoop expertise | Zero operations | Better defaults | Security complexity |
+| Aspect                | Cassandra           | HBase            | DynamoDB        | ScyllaDB            | Accumulo            |
+|-----------------------|---------------------|------------------|-----------------|---------------------|---------------------|
+| **Complexity**        | Medium-High         | High             | None            | Medium              | High                |
+| **JVM Tuning**        | Critical            | Critical         | N/A             | Not needed (C++)    | Critical            |
+| **Compaction Tuning** | Important           | Important        | Automatic       | Self-tuning         | Important           |
+| **Monitoring Tools**  | DataStax, OSS tools | Ambari, Cloudera | CloudWatch      | ScyllaDB Monitoring | Similar to HBase    |
+| **Key Difference**    | Well-documented     | Hadoop expertise | Zero operations | Better defaults     | Security complexity |
 
 ## Decision Matrix for Common Use Cases
 
-| Use Case | Best Choice | Why | Avoid | Why Not |
-|----------|-------------|-----|-------|---------|
-| **Time-Series Data** | Cassandra/ScyllaDB | Designed for it, TTL support | HBase | More complex for time-series |
-| **IoT at Scale** | DynamoDB | Auto-scaling, serverless | Accumulo | Operational overhead |
-| **Analytics Pipeline** | HBase | Hadoop integration | DynamoDB | Cost at scale |
-| **Real-time AdTech** | ScyllaDB | Lowest latency, high throughput | HBase | Latency requirements |
-| **Secure Analytics** | Accumulo | Cell-level security | DynamoDB | Limited security model |
-| **Chat History** | Cassandra | Wide rows, global scale | HBase | Complexity for use case |
-| **ML Feature Store** | HBase | Spark/Hadoop integration | DynamoDB | Analytics limitations |
-| **Gaming Leaderboards** | ScyllaDB/DynamoDB | Performance/serverless | Accumulo | Overkill |
-| **Audit Logs** | Accumulo/Cassandra | Security/scale | ScyllaDB | Less mature |
-| **Multi-DC Active-Active** | Cassandra | Best multi-DC story | HBase | Active/passive only |
+| Use Case                   | Best Choice        | Why                             | Avoid    | Why Not                      |
+|----------------------------|--------------------|---------------------------------|----------|------------------------------|
+| **Time-Series Data**       | Cassandra/ScyllaDB | Designed for it, TTL support    | HBase    | More complex for time-series |
+| **IoT at Scale**           | DynamoDB           | Auto-scaling, serverless        | Accumulo | Operational overhead         |
+| **Analytics Pipeline**     | HBase              | Hadoop integration              | DynamoDB | Cost at scale                |
+| **Real-time AdTech**       | ScyllaDB           | Lowest latency, high throughput | HBase    | Latency requirements         |
+| **Secure Analytics**       | Accumulo           | Cell-level security             | DynamoDB | Limited security model       |
+| **Chat History**           | Cassandra          | Wide rows, global scale         | HBase    | Complexity for use case      |
+| **ML Feature Store**       | HBase              | Spark/Hadoop integration        | DynamoDB | Analytics limitations        |
+| **Gaming Leaderboards**    | ScyllaDB/DynamoDB  | Performance/serverless          | Accumulo | Overkill                     |
+| **Audit Logs**             | Accumulo/Cassandra | Security/scale                  | ScyllaDB | Less mature                  |
+| **Multi-DC Active-Active** | Cassandra          | Best multi-DC story             | HBase    | Active/passive only          |
 
 ## Key Differentiators Summary
 

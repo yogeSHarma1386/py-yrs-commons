@@ -2,13 +2,13 @@
 
 ## Core Characteristics
 
-| Database | Data Structures Used | Real-World Application | Why It's Used |
-|----------|---------------------|------------------------|---------------|
-| PostgreSQL | B-tree, Hash, GiST, SP-GiST, GIN, BRIN indexes; MVCC | Complex applications, analytics, GIS | Advanced features, extensibility, ACID compliance, open source |
-| MySQL | B-tree, Hash indexes; InnoDB storage engine | Web applications, e-commerce | Speed, simplicity, wide adoption, LAMP stack integration |
-| Oracle Database | B-tree, Bitmap, Function-based indexes; Redo logs | Enterprise systems, banking | Advanced features, scalability, support, security |
-| Microsoft SQL Server | B-tree, Columnstore, Hash indexes; Page/Extent allocation | Enterprise Windows environments | Windows integration, BI tools, .NET ecosystem |
-| MariaDB | B-tree, Hash indexes; Multiple storage engines | Web applications, drop-in MySQL replacement | MySQL compatibility, open source, enhanced features |
+| Database             | Data Structures Used                                      | Real-World Application                      | Why It's Used                                                  |
+|----------------------|-----------------------------------------------------------|---------------------------------------------|----------------------------------------------------------------|
+| PostgreSQL           | B-tree, Hash, GiST, SP-GiST, GIN, BRIN indexes; MVCC      | Complex applications, analytics, GIS        | Advanced features, extensibility, ACID compliance, open source |
+| MySQL                | B-tree, Hash indexes; InnoDB storage engine               | Web applications, e-commerce                | Speed, simplicity, wide adoption, LAMP stack integration       |
+| Oracle Database      | B-tree, Bitmap, Function-based indexes; Redo logs         | Enterprise systems, banking                 | Advanced features, scalability, support, security              |
+| Microsoft SQL Server | B-tree, Columnstore, Hash indexes; Page/Extent allocation | Enterprise Windows environments             | Windows integration, BI tools, .NET ecosystem                  |
+| MariaDB              | B-tree, Hash indexes; Multiple storage engines            | Web applications, drop-in MySQL replacement | MySQL compatibility, open source, enhanced features            |
 
 ## Use Cases Description
 
