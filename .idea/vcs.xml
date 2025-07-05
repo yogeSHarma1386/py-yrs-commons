@@ -14,6 +14,5 @@
     <mapping directory="$USER_HOME$/Projects/InterVuz/tech-interview-handbook" vcs="Git" />
     <mapping directory="$USER_HOME$/Projects/InterVuz/walkccc-LeetCode" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/yrs_commons/system_design/karan-system-design" vcs="Git" />
   </component>
 </project>
