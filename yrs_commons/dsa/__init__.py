@@ -18,7 +18,7 @@ from .structures import (
     DoublyLinkedList,
     CircularQueue,
     DeQueue,
-    MinHeap,
+    Heap,
 )
 from .treez import BinaryTree, BST, AVLTree, BinaryIndexedTree, Trie
 
@@ -48,7 +48,7 @@ __all__ += [
     "DoublyLinkedList",
     "CircularQueue",
     "DeQueue",
-    "MinHeap",
+    "Heap",
 ]
 
 __all__ += ["NodeTree", "NodeAVL", "NodeDLL", "NodeLL", "Graph"]

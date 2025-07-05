@@ -2,6 +2,7 @@ import heapq
 
 
 def binary_search(arr, target):  # O(log n)
+    if not arr: return -1
     left, right = 0, len(arr) - 1
 
     while left <= right:

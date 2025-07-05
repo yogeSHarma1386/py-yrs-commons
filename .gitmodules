@@ -1,0 +1,3 @@
+[submodule "yrs_commons/system_design/karan-system-design"]
+	path = yrs_commons/system_design/karan-system-design
+	url = git@github.com:karanpratapsingh/system-design.git
