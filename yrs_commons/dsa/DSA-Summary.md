@@ -65,6 +65,7 @@
 - **SDE1-SDE2**: Master Table 1 patterns (1-15)
 - **SDE3**: Master Table 1 + Most of Table 2 (1-25)
 - **Staff Engineer**: Master Tables 1-2 + Familiar with Table 3 (1-35)
+  - Check few code examples [here](/yrs_commons/dsa/detailed/java/senior-backend-dsa-guide.md)
 - **Senior Staff**: Master all patterns, can design novel algorithms (1-45)
 
 ## Key Differentiators by Level
