@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
-    <mapping directory="$USER_HOME$/Projects/InterVuz/SDFC" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/The-Complete-FAANG-Preparation" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/TheAlgorithms/Go" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/TheAlgorithms/Java" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/TheAlgorithms/Python" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/coding-interview-university" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/free-programming-books" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/interviews" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/neetcode-gh-leetcode" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/swift-algorithm-club" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/tech-interview-handbook" vcs="Git" />
-    <mapping directory="$USER_HOME$/Projects/InterVuz/walkccc-LeetCode" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
 </project>
