@@ -29,22 +29,6 @@ class Genz(Mil2, Mil1):
         print("[E] Genz")
 
 
-import os
-import re
-
-
-if __name__ == "__main__":
-    sample_folders = os.listdir("/Users/yogeshsharma/Projects/InterVuz/walkccc-LeetCode/solutions")
-    # One-liner version
-    compact_dict = {re.match(r'^(\d+)\.', f).group(1): f
-                    for f in sample_folders
-                    if re.match(r'^(\d+)\.', f)}
-    compact_dict = {no: f"{f}/{no}.py" for no, f in compact_dict.items()}
-
-    pprint({f"//{no}.py": f"{f}" for no, f in compact_dict.items()})
-
-
-
 if __name__ == "__main0__":
     gp = GP()
     print(gp._unmangled)
