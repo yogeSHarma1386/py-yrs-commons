@@ -742,7 +742,7 @@ Redis Conflict Resolution
 Scenario: Two clients update same key
 ├── Redis Cluster: Last write wins (wall clock)
 ├── Redis Sentinel: No conflict (single master)
-└── Redis Enterprise: 
+└── Redis Enterprise:
     ├── CRDTs for automatic resolution
     └── Active-Active geo-replication
 ```
